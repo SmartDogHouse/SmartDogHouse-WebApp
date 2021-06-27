@@ -11,21 +11,29 @@
     "@mdi/font": "5.9.55",
     "@vue/cli-plugin-babel": "4.1.1",
     "axios": "0.21.1",
+    "chart.js": "^2.9.3",
+    "eslint-plugin-vue": "^7.11.1",
     "material-design-icons-iconfont": "6.1.0",
+    "node-sass": "^6.0.1",
+    "sass-loader": "^12.1.0",
     "vue": "2.6.14",
     "vue-axios": "3.2.4",
+    "vue-chartkick": "^0.6.0",
     "vue-router": "3.2.0",
     "vuetify": "2.5.4",
-    "vue-chartkick": "^'0.6.1'",
-    "chart.js": "^2.9.3",
-    "vuex": "^3.5.1"
+    "vuex": "^3.5.1",
+    "v-switch-case": "1.0.3"
   },
   "devDependencies": {
-    "@vue/cli-plugin-eslint": "4.1.1",
+    "@vue/cli-plugin-babel": "~4.4.0",
+    "@vue/cli-plugin-eslint": "~4.4.0",
+    "@vue/cli-plugin-router": "~4.4.0",
+    "@vue/cli-plugin-unit-jest": "~4.4.0",
+    "@vue/cli-plugin-vuex": "~4.4.0",
     "@vue/cli-service": "4.1.1",
+    "@vue/test-utils": "^1.0.3",
     "babel-eslint": "^10.0.3",
     "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.0.1",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
@@ -33,7 +41,10 @@
     "env": {
       "node": true
     },
-    "extends": ["plugin:vue/essential", "eslint:recommended"],
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
     "rules": {},
     "parserOptions": {
       "parser": "babel-eslint"
@@ -44,7 +55,15 @@
       "autoprefixer": {}
     }
   },
-  "browserslist": ["> 1%", "last 2 versions", "not ie <= 8"],
-  "keywords": ["vue", "vuejs", "starter"],
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
+  "keywords": [
+    "vue",
+    "vuejs",
+    "starter"
+  ],
   "description": "Vue.js example starter project"
 }
