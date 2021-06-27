@@ -9,6 +9,7 @@ export default new Vuex.Store({
     fixed: 0,
     withdrawal: 0,
     donation: 0,
+    dogs: [{}],
     all: [],
     pieData: []
   },
@@ -19,7 +20,9 @@ export default new Vuex.Store({
     SAVE_DONATION(state, schemas) {
       state.donation = schemas;
     },
-
+    SAVE_DOGS(state, schemas) {
+      state.dogs = schemas;
+    },
     SAVE_WITHDRAWAL(state, schemas) {
       state.withdrawal = schemas;
     },
@@ -83,6 +86,18 @@ export default new Vuex.Store({
           commit("SAVE_DONATION", 0);
           // throw new Error(`API ${e}`);
           // console.log(e);
+        });
+    },
+
+    load({ commit }) {
+      Vue.axios
+        .get("/req/dogs")
+        .then((response) => {
+          console.log(response.data.body.Items);
+          commit("SAVE_DOGS", response.data.body.Items);
+        })
+        .catch(() => {
+          commit("SAVE_DOGS", 0);
         });
     },
     loadAllStats({ commit }) {

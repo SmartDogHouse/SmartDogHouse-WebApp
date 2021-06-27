@@ -24,27 +24,27 @@
     </v-navigation-drawer>
 
     <v-main class="grey" >
-        <div v-switch="view">
-      <v-container v-case="'1'">
-        <v-row>
-          <v-col cols="12" sm="5">
-            <v-sheet rounded="lg" min-height="268">
-              
-              <dogScroller :names="names" :codes="codes"></dogScroller>
-            </v-sheet>
-          </v-col>
+      <div v-switch="view">
+        <v-container v-case="'1'">
+          <v-row>
+            <v-col cols="12" sm="5">
+              <v-sheet rounded="lg" min-height="268">
+                
+                <dogScroller :names="names" :codes="codes"></dogScroller>
+              </v-sheet>
+            </v-col>
 
-          <v-col cols="12" sm="7">
-            <v-sheet rounded="lg" min-height="268">
-              <dogView :names="names" :codes="codes"></dogView>
-            </v-sheet>
-          </v-col>
-        </v-row>
-      </v-container>
-            <v-container v-case="'2'">
-          <h1> dsaasdsasdsda</h1>
-      </v-container>
-        </div>
+            <v-col cols="12" sm="7">
+              <v-sheet rounded="lg" min-height="268">
+                <dogView :names="names" :codes="codes"></dogView>
+              </v-sheet>
+            </v-col>
+          </v-row>
+        </v-container>
+        <v-container v-case="'2'">
+            <h1> dsaasdsasdsda</h1>
+        </v-container>
+      </div>
     </v-main>
   </div>
 </template>
@@ -58,27 +58,36 @@ export default {
     dogView: () => import("../components/DogView"),
   },
   data: () => ({
+    dogs: [{}],
     view:"1",
-    names: ["Lana", "Merinox", "Puppa"],
-    codes: ["11222", "33344", "67999"],
+    names: [],
+    codes: [],
     drawer: false,
     group: null,
     links: ["Gestore", "Addetto cibo", "Addetto alla salute","Addetto alla videosorveglianza", "Altro addetto"],
   }),
   props: {},
-
+  created() {
+    this.$store.dispatch("load");
+  },
   watch: {
     group() {
       this.drawer = false;
     },
+    "$store.state.dogs"(x) {
+      this.dogs = x;
+      this.names = this.dogs.map(x => x.name.S)
+      this.codes = this.dogs.map(x => x.id_chip.S)
+}
   },
   methods: {
     logOut() {
       this.$router.push("/Login").catch(() => {});
     },
     changeView(str) {
-      this.view++
+      this.view = "2"
       console.log(str)
+      console.log(this.dogs)
     },
   },
 };

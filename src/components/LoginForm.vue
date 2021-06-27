@@ -60,7 +60,11 @@ export default {
         tryLogIn1() {
    //   this.$router.push("/Home").catch(() => {});
 
-      this.axios.get("/req/auth",{ crossdomain: true }).then((response) => {
+      this.axios.get("/req/dogs",{ crossdomain: true }).then((response) => {
+        console.log(response.data);
+      });
+
+            this.axios.get("/req/auth",{ crossdomain: true }).then((response) => {
         console.log(response.data);
       });
     },
