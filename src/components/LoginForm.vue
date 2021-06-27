@@ -24,6 +24,7 @@
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn color="primary" v-on:click="tryLogIn">Login</v-btn>
+      <v-btn color="primary" v-on:click="tryLogIn1">Test</v-btn>
       <v-spacer></v-spacer>
     </v-card-actions>
   </v-card>
@@ -52,7 +53,14 @@ export default {
     tryLogIn() {
       this.$router.push("/Home").catch(() => {});
 
-      this.axios.get("https://httpbin.org/get").then((response) => {
+      this.axios.get("/req/auth",{ crossdomain: true }).then((response) => {
+        console.log(response.data);
+      });
+    },
+        tryLogIn1() {
+   //   this.$router.push("/Home").catch(() => {});
+
+      this.axios.get("/req/auth",{ crossdomain: true }).then((response) => {
         console.log(response.data);
       });
     },

@@ -115,7 +115,6 @@
             </template>
           </v-list-item>
         </v-list-item-group>
-        <v-list-item-group>
           <v-list-item>
             <v-slider
               v-model="sliderPatient.val"
@@ -151,7 +150,6 @@
               label="Taglia animale"
             ></v-select>
           </v-list-item>
-        </v-list-item-group>
       </v-list>
     </v-card>
     <v-overlay :absolute="absolute" :value="overlay">

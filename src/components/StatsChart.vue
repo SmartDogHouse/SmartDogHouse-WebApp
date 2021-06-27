@@ -73,7 +73,7 @@
     </v-dialog>
   </div>
 </template>
-<style lang="scss">
+<style>
 #zoom {
   transition: transform 0.5s ease;
 }
