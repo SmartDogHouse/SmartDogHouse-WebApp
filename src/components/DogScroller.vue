@@ -27,7 +27,7 @@
             </v-list-item-content>
 
             <v-list-item-action>
-              <v-btn depressed small class="px-8 py-4">
+              <v-btn @click="emitButtonPressed(item.id)" depressed small class="px-8 py-4">
                 <v-icon color="orange darken-4" center>
                   mdi-open-in-new
                 </v-icon>
@@ -45,11 +45,11 @@ export default {
   components: {},
   name: "HelloWorld",
   props: {
-    msg: String,
     names: Array,
     codes: Array,
   },
-  data: () => ({
+  data: () => (
+    {
     colors: [
       "#2196F3",
       "#90CAF9",
@@ -80,10 +80,14 @@ export default {
         return {
           color: this.colors[this.genRandomIndex(colorsLength)],
           fullName: `${name} ${codes}`,
+          id: `${codes}`,
           initials: `${name[0]} ${codes[0] + codes[1]}`,
         };
       });
     },
+    emitButtonPressed(name){
+      this.$emit('dogChoosed', name)
+    }
   },
 };
 </script>

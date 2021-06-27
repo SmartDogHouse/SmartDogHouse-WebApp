@@ -30,13 +30,13 @@
             <v-col cols="12" sm="5">
               <v-sheet rounded="lg" min-height="268">
                 
-                <dogScroller :names="names" :codes="codes"></dogScroller>
+                <dogScroller @dogChoosed="onClickDog" :names="names" :codes="codes"></dogScroller>
               </v-sheet>
             </v-col>
 
             <v-col cols="12" sm="7">
               <v-sheet rounded="lg" min-height="268">
-                <dogView :names="names" :codes="codes"></dogView>
+                <dogView :dogData="actualDog"></dogView>
               </v-sheet>
             </v-col>
           </v-row>
@@ -62,6 +62,7 @@ export default {
     view:"1",
     names: [],
     codes: [],
+    actualDog: {},
     drawer: false,
     group: null,
     links: ["Gestore", "Addetto cibo", "Addetto alla salute","Addetto alla videosorveglianza", "Altro addetto"],
@@ -78,9 +79,13 @@ export default {
       this.dogs = x;
       this.names = this.dogs.map(x => x.name.S)
       this.codes = this.dogs.map(x => x.id_chip.S)
-}
+  }
   },
   methods: {
+    onClickDog (value) {
+      console.log(this.dogs.find(dog => dog.id_chip.S === value))
+      this.actualDog = this.dogs.find(dog => dog.id_chip.S === value)
+    },
     logOut() {
       this.$router.push("/Login").catch(() => {});
     },

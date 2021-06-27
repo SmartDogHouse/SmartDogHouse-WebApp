@@ -30,7 +30,7 @@
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title>Cibo</v-list-item-title>
-            <v-list-item-subtitle>XXX</v-list-item-subtitle>
+            <v-list-item-subtitle>{{dogData.name}}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
         <v-list-item>
@@ -164,9 +164,7 @@ export default {
     StatsChart: () => import("../components/StatsChart"),
   },
   props: {
-    msg: String,
-    names: Array,
-    codes: Array,
+    dogData: Object,
   },
   data() {
     return {
