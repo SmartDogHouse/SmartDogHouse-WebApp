@@ -23,7 +23,7 @@
         </v-list-item>
       </v-list>
 
-      <v-divider></v-divider>
+      <v-divider/>
 
       <v-list subheader three-line>
         <v-subheader>Consumi</v-subheader>
@@ -46,7 +46,7 @@
         </v-list-item-content>
       </v-list-item>
 
-      <v-divider></v-divider>
+      <v-divider/>
 
       <v-list subheader three-line>
         <v-subheader>Parametri vitali</v-subheader>
@@ -75,7 +75,7 @@
         </v-list-item>
       </v-list>
 
-      <v-divider></v-divider>
+      <v-divider/>
 
       <v-list flat subheader three-line>
         <v-subheader>Soglie impostabili</v-subheader>
@@ -151,10 +151,12 @@
             ></v-select>
           </v-list-item>
       </v-list>
+      <v-list-item-action>
+          <v-btn @click="sendStats" depressed small class="px-8 py-4">
+            Applica
+          </v-btn>
+      </v-list-item-action>
     </v-card>
-    <v-overlay :absolute="absolute" :value="overlay">
-      <v-btn color="success" @click="overlay = false"> Hide Overlay </v-btn>
-    </v-overlay>
   </div>
 </template>
 
@@ -219,14 +221,15 @@ export default {
       },
 
       settings: [],
-      absolute: true,
-      overlay: false,
     };
   },
   methods: {
     fixScreen() {
       document.documentElement.style.overflow = "hidden";
       document.body.scroll = "no";
+    },
+    sendStats() {
+
     },
     genRandomIndex(length) {
       return Math.ceil(Math.random() * (length - 1));
