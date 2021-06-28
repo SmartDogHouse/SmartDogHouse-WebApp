@@ -33,9 +33,6 @@
           </v-list-item>
         </v-card>
       </v-col>
-      <v-col>
-        <NotificationsTab :notifications="not"/>
-      </v-col>
     </v-row>
   </div>
 </template>
@@ -43,7 +40,6 @@
 <script>
 export default {
   components: {    
-    NotificationsTab: () => import("../components/NotificationsTab"),
   },
   name: "",
   props: {
@@ -54,7 +50,6 @@ export default {
     return {
       cameras: ["Cam1","Cam2"],
       actualCamera: "",
-      not: [{"name":"Allarmissimo", "msg":"fuggisci"}]
     };
   },
   methods: {

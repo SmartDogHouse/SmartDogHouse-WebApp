@@ -26,6 +26,7 @@
     <v-main class="grey" >
       <div v-switch="view">
         <v-container v-case="'Addetto cibo'">
+          <NotificationsTab class="my-4" :notifications="notificationsFoodAttendant"/>
           <v-row>
             <v-col cols="12" sm="5">
               <v-sheet rounded="lg" min-height="268">
@@ -57,6 +58,7 @@
           </v-row>
         </v-container>
         <v-container v-case="'Addetto alla salute'">
+          <NotificationsTab class="my-4" :notifications="notificationsHealthManager"/>
           <v-row>
             <v-col cols="12" sm="5">
               <v-sheet rounded="lg" min-height="268">
@@ -72,6 +74,7 @@
           </v-row>
         </v-container>
         <v-container v-case="'Addetto alla videosorveglianza'">
+          <NotificationsTab class="my-4" :notifications="notificationsSUpervisor"/>
           <v-row>
             <v-col>
               <CameraFrame/>
@@ -94,12 +97,18 @@
 export default {
   components: {
     //  StatsChart: () => import("../components/StatsChart"),
+    NotificationsTab: () => import("../components/NotificationsTab"),
     AdministrationCommands: () => import("../components/AdministrationCommands"),
     CameraFrame: () => import("../components/CameraFrame"),
     dogScroller: () => import("../components/DogScroller"),
     dogView: () => import("../components/DogView"),
   },
   data: () => ({
+    notificationsFoodAttendant: [],
+    notificationsHealthManager: [],
+   // notificationsSUpervisor: [{"name":"Allarmissimo", "msg":"fuggisci"}],
+    notificationsSUpervisor: [{"name":"Allarmissimo", "msg":"fuggisci"}],
+
     dogs: [{}],
     view:"1",
     names: [],
