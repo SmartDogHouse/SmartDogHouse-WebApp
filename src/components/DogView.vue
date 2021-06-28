@@ -151,6 +151,7 @@
             ></v-select>
           </v-list-item>
       </v-list>
+      <v-divider/>
       <v-list-item-action>
           <v-btn @click="sendStats" depressed small class="px-8 py-4">
             Applica

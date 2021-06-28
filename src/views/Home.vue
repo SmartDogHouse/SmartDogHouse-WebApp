@@ -8,11 +8,12 @@
       </v-tabs>
       <v-app-bar-nav-icon
         color="orange darken-4"
-        @click.stop="drawer = !drawer"
+        @click.stop="openDrawner"
       ></v-app-bar-nav-icon>
     </v-app-bar>
 
-    <v-navigation-drawer v-model="drawer" height="100vh" absolute bottom temporary>
+    <v-navigation-drawer v-model="drawer" height="100vh" align="center"
+      justify="center" absolute bottom temporary>
       <v-list nav dense>
         <v-list-item-group v-model="group" active-class="no-active">
           <v-list-item class="noActive" @click.stop="logOut">
@@ -121,6 +122,13 @@ export default {
     },
     logOut() {
       this.$router.push("/Login").catch(() => {});
+    },
+    openDrawner(){
+      this.drawer = !this.drawer
+      window.scrollTo({    
+        top: 0,
+        left: 0,
+        behavior: 'smooth'})
     },
     changeView(str) {
       this.view = str
