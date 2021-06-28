@@ -8,7 +8,7 @@
           <v-container>
             <v-row dense>
               <v-col cols="12">
-                <LoginForm></LoginForm>
+                <LoginForm/>
               </v-col>
             </v-row>
           </v-container>

@@ -41,7 +41,7 @@
           </v-row>
         </v-container>
         <v-container v-case="'Gestore'">
-                      <AdministrationCommands/>
+          <AdministrationCommands/>
           <v-row>
             <v-col>
               <v-sheet rounded="lg" min-height="268">
