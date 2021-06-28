@@ -3,7 +3,6 @@
     <v-app-bar app color="grey" flat>
       <v-tabs centered class="ml-n9" color="orange darken-4">
         <v-tab v-for="link in links" :key="link" @click="changeView(link)">
-
           {{ link }}
         </v-tab>
       </v-tabs>
@@ -13,7 +12,7 @@
       ></v-app-bar-nav-icon>
     </v-app-bar>
 
-    <v-navigation-drawer v-model="drawer" absolute bottom temporary>
+    <v-navigation-drawer v-model="drawer" height="100vh" absolute bottom temporary>
       <v-list nav dense>
         <v-list-item-group v-model="group" active-class="no-active">
           <v-list-item class="noActive" @click.stop="logOut">
@@ -25,7 +24,7 @@
 
     <v-main class="grey" >
       <div v-switch="view">
-        <v-container v-case="'1'">
+        <v-container v-case="'Addetto cibo'">
           <v-row>
             <v-col cols="12" sm="5">
               <v-sheet rounded="lg" min-height="268">
@@ -41,8 +40,42 @@
             </v-col>
           </v-row>
         </v-container>
-        <v-container v-case="'2'">
-            <h1> dsaasdsasdsda</h1>
+        <v-container v-case="'Gestore'">
+          <v-row>
+            <v-col>
+              <h1> Work in progress1!</h1>
+            </v-col>
+          </v-row>
+        </v-container>
+        <v-container v-case="'Addetto alla salute'">
+          <v-row>
+            <v-col cols="12" sm="5">
+              <v-sheet rounded="lg" min-height="268">
+                
+                <dogScroller @dogChoosed="onClickDog" :names="names" :codes="codes"></dogScroller>
+              </v-sheet>
+            </v-col>
+
+            <v-col cols="12" sm="7">
+              <v-sheet rounded="lg" min-height="268">
+                <dogView :dogData="actualDog"></dogView>
+              </v-sheet>
+            </v-col>
+          </v-row>
+        </v-container>
+        <v-container v-case="'Addetto alla videosorveglianza'">
+          <v-row>
+            <v-col>
+              <h1> Work in progress2!</h1>
+            </v-col>
+          </v-row>
+        </v-container>
+        <v-container v-case="'Altro addetto'">
+          <v-row>
+            <v-col>
+              <h1> Work in progress!</h1>
+            </v-col>
+          </v-row>
         </v-container>
       </div>
     </v-main>
@@ -90,9 +123,7 @@ export default {
       this.$router.push("/Login").catch(() => {});
     },
     changeView(str) {
-      this.view = "2"
-      console.log(str)
-      console.log(this.dogs)
+      this.view = str
     },
   },
 };
