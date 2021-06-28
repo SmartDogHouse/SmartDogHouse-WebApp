@@ -2,9 +2,9 @@
   <div>
     <v-card class="mx-auto" max-width="400">
       <v-card-title class="white--text orange darken-4">
-        <v-spacer></v-spacer>
-        Cani registrati
-        <v-spacer></v-spacer>
+        <v-spacer/>
+          Cani registrati
+        <v-spacer/>
       </v-card-title>
 
       <v-card-text class="pt-4">
@@ -43,7 +43,7 @@
 <script>
 export default {
   components: {},
-  name: "HelloWorld",
+  name: "",
   props: {
     names: Array,
     codes: Array,

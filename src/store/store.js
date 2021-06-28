@@ -49,8 +49,8 @@ export default new Vuex.Store({
       Vue.axios
         .get("/req/dogs")
         .then((response) => {
-          console.log(response.data.body.Items);
-          commit("SAVE_DOGS", response.data.body.Items);
+          console.log(response.data.body);
+          commit("SAVE_DOGS", response.data.body);
         })
         .catch(() => {
           commit("SAVE_DOGS", 0);

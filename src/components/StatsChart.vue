@@ -25,10 +25,11 @@
 
       <v-card>
         <v-toolbar dark color="indigo">
+          <v-spacer/>
           <v-toolbar-title class="font-weight-bold text--white"
             >Statistiche in dettaglio</v-toolbar-title
           >
-          <v-spacer></v-spacer>
+          <v-spacer/>
           <v-btn icon dark @click="dialog = false">
             <v-icon>mdi-close</v-icon>
           </v-btn>
@@ -41,30 +42,13 @@
                 width="95%"
               >
                 <v-card-title class="justify-center"
-                  >Grafico andamento donazioni e ritiri</v-card-title
-                >
+                  >{{name}}</v-card-title>
                 <line-chart :data="lineChartData"></line-chart>
               </v-card>
               <v-card
                 class="flex-column d-flex align-stretch mx-auto my-2"
                 width="95%"
               >
-                <v-card-title class="justify-center"
-                  >Grafico tipologia device ritirati</v-card-title
-                >
-                <pie-chart :data="this.pieChartData"></pie-chart>
-              </v-card>
-              <v-card
-                class="flex-column d-flex align-stretch mx-auto my-2"
-                width="95%"
-              >
-                <v-card-title class="justify-center">
-                  Grafico donazioni e ritiri accettati e rifiutati
-                </v-card-title>
-                <column-chart
-                  :stacked="true"
-                  :data="columnChartData"
-                ></column-chart>
               </v-card>
             </v-card-text>
           </v-card>
@@ -75,7 +59,7 @@
 </template>
 <style>
 #zoom {
-  transition: transform 0.5s ease;
+  transition: transform 0.4s ease;
 }
 #zoom:hover,
 #zoom:focus {
@@ -88,6 +72,10 @@ import Chartkick from "vue-chartkick";
 import Chart from "chart.js";
 Vue.use(Chartkick.use(Chart));
 export default {
+  props: {
+    name: String,
+    lineChartData: Array,
+  },
   /*watch: {
     "$store.state.stats.pieData"(x) {
       this.pieChartData = [...x];
@@ -101,40 +89,6 @@ export default {
   },*/
   data: () => ({
     dialog: false,
-    lineChartData: [],
-    columnChartData: [
-      {
-        name: "Donazioni",
-        stack: "stack1",
-        data: [
-          ["2016", 3],
-          ["2017", 6],
-          ["2018", 7],
-          ["2019", 7],
-        ],
-      },
-      {
-        name: "Ritiri",
-        stack: "stack1",
-        data: [
-          ["2016", 5],
-          ["2017", 2],
-          ["2018", 11],
-          ["2019", 9],
-        ],
-      },
-      {
-        name: "Donazioni e ritiri rifiutati",
-        stack: "stack1",
-        data: [
-          ["2016", 1],
-          ["2017", 21],
-          ["2018", 31],
-          ["2019", 41],
-        ],
-      },
-    ],
-    pieChartData: [],
   }),
 };
 </script>

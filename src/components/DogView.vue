@@ -2,9 +2,9 @@
   <div>
     <v-card class="mx-auto" max-width="400">
       <v-card-title class="white--text orange darken-4">
-        <v-spacer></v-spacer>
-        Dati cane
-        <v-spacer></v-spacer>
+        <v-spacer/>
+          Dati cane
+        <v-spacer/>
       </v-card-title>
 
       <v-list subheader three-line>
@@ -12,13 +12,13 @@
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title>Nome</v-list-item-title>
-            <v-list-item-subtitle>XXX</v-list-item-subtitle>
+            <v-list-item-subtitle>{{dogData.name}}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title>ID</v-list-item-title>
-            <v-list-item-subtitle>XXX</v-list-item-subtitle>
+            <v-list-item-subtitle>{{dogData.id_chip}}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -30,7 +30,7 @@
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title>Cibo</v-list-item-title>
-            <v-list-item-subtitle>{{dogData.name}}</v-list-item-subtitle>
+            <v-list-item-subtitle>VVV</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
         <v-list-item>
@@ -42,7 +42,7 @@
       </v-list>
       <v-list-item>
         <v-list-item-content>
-          <StatsChart id="stats" />
+          <StatsChart :lineChartData ="foodChartData" :name="lineChartHealthName"/>
         </v-list-item-content>
       </v-list-item>
 
@@ -56,7 +56,7 @@
             <v-list-item-subtitle>XXX</v-list-item-subtitle>
           </v-list-item-content>
           <!--          <v-list-item-action>
-            <v-btn depressed small class="px-8 py-4">
+            <v-btn @click="" depressed small class="px-8 py-4">
               <v-icon color="orange darken-4" center> mdi-open-in-new </v-icon>
             </v-btn>
           </v-list-item-action> -->
@@ -70,7 +70,7 @@
 
         <v-list-item>
           <v-list-item-content>
-            <StatsChart id="stats" />
+            <StatsChart :lineChartData ="healthChartData" :name="lineChartFoodName"/>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -160,6 +160,7 @@
 
 <script>
 export default {
+
   components: {
     StatsChart: () => import("../components/StatsChart"),
   },
@@ -168,6 +169,38 @@ export default {
   },
   data() {
     return {
+      healthChartData:[],
+      foodChartData: [
+      {
+        name: "Cibo",
+        data: [
+          ["2016", 3],
+          ["2017", 6],
+          ["2018", 7],
+          ["2019", 7],
+        ],
+      },
+      {
+        name: "Acqua",
+        data: [
+          ["2016", 5],
+          ["2017", 2],
+          ["2018", 11],
+          ["2019", 9],
+        ],
+      },
+      {
+        name: "Zio peppe",
+        data: [
+          ["2016", 1],
+          ["2017", 21],
+          ["2018", 31],
+          ["2019", 41],
+        ],
+      },
+    ],
+      lineChartFoodName : "Consumi cibo e acqua",
+      lineChartHealthName : "Rilevazioni vitali",
       sliderPatient: {
         label: "Qta cibo degenza",
         min: 50,

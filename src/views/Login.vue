@@ -4,7 +4,7 @@
       <v-flex xs12 sm8 md4>
         <v-card class="mx-auto">
           <v-img :aspect-ratio="16 / 9" src="/assets/Smh0.png"></v-img>
-          <v-spacer> </v-spacer>
+          <v-spacer/>
           <v-container>
             <v-row dense>
               <v-col cols="12">
