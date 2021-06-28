@@ -10,9 +10,7 @@
       <v-card-text class="pt-4">
         Seleziona un cane da visualizzare
       </v-card-text>
-
       <v-divider/>
-
       <v-virtual-scroll :items="items()" :item-height="50" height="300">
         <template v-slot:default="{ item }">
           <v-list-item>

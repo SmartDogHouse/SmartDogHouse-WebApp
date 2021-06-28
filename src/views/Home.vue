@@ -67,7 +67,7 @@
         <v-container v-case="'Addetto alla videosorveglianza'">
           <v-row>
             <v-col>
-              <h1> Work in progress2!</h1>
+              <CameraFrame/>
             </v-col>
           </v-row>
         </v-container>
@@ -87,7 +87,7 @@
 export default {
   components: {
     //  StatsChart: () => import("../components/StatsChart"),
-
+    CameraFrame: () => import("../components/CameraFrame"),
     dogScroller: () => import("../components/DogScroller"),
     dogView: () => import("../components/DogView"),
   },
