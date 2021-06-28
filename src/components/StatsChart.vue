@@ -76,17 +76,6 @@ export default {
     name: String,
     lineChartData: Array,
   },
-  /*watch: {
-    "$store.state.stats.pieData"(x) {
-      this.pieChartData = [...x];
-    },
-    "$store.state.stats.all"(x) {
-      this.lineChartData = x;
-    },
-  },
-  created() {
-    this.$store.dispatch("stats/loadAllStats");
-  },*/
   data: () => ({
     dialog: false,
   }),

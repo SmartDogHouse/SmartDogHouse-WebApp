@@ -43,6 +43,51 @@
       <v-list-item>
         <v-list-item-content>
           <StatsChart :lineChartData ="foodChartData" :name="lineChartHealthName"/>
+            <v-menu
+          ref="menuFood"
+          v-model="menuFood"
+          :close-on-content-click="false"
+          :return-value.sync="datesForFood"
+          transition="scale-transition"
+          offset-y
+          min-width="auto"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-combobox
+              v-model="datesForFood"
+              multiple
+              chips
+              small-chips
+              label="Multiple picker in menu"
+              prepend-icon="mdi-calendar"
+              readonly
+              v-bind="attrs"
+              v-on="on"
+            ></v-combobox>
+          </template>
+          <v-date-picker
+            v-model="datesForFood"
+            multiple
+            no-title
+            scrollable
+          >
+            <v-spacer></v-spacer>
+            <v-btn
+              text
+              color="primary"
+              @click="menuFood = false"
+            >
+              Cancel
+            </v-btn>
+            <v-btn
+              text
+              color="primary"
+              @click="$refs.menuFood.save(datesForFood)"
+            >
+              OK
+            </v-btn>
+          </v-date-picker>
+        </v-menu>
         </v-list-item-content>
       </v-list-item>
 
@@ -71,6 +116,51 @@
         <v-list-item>
           <v-list-item-content>
             <StatsChart :lineChartData ="healthChartData" :name="lineChartFoodName"/>
+            <v-menu
+          ref="menuHealth"
+          v-model="menuHealth"
+          :close-on-content-click="false"
+          :return-value.sync="datesForHealth"
+          transition="scale-transition"
+          offset-y
+          min-width="auto"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-combobox
+              v-model="datesForHealth"
+              multiple
+              chips
+              small-chips
+              label="Multiple picker in menu"
+              prepend-icon="mdi-calendar"
+              readonly
+              v-bind="attrs"
+              v-on="on"
+            ></v-combobox>
+          </template>
+          <v-date-picker
+            v-model="datesForHealth"
+            multiple
+            no-title
+            scrollable
+          >
+            <v-spacer></v-spacer>
+            <v-btn
+              text
+              color="primary"
+              @click="menuHealth = false"
+            >
+              Cancel
+            </v-btn>
+            <v-btn
+              text
+              color="primary"
+              @click="$refs.menuHealth.save(datesForHealth)"
+            >
+              OK
+            </v-btn>
+          </v-date-picker>
+        </v-menu>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -172,6 +262,12 @@ export default {
   },
   data() {
     return {
+    //  datesForFood: ['2020-01-01', '2021-01-01'],D
+    
+      datesForFood: [],
+      menuFood: false,
+      datesForHealth: [],
+      menuHealth: false,
       healthChartData:[],
       foodChartData: [
       {
@@ -223,6 +319,18 @@ export default {
 
       settings: [],
     };
+  },
+  watch:{
+    "datesForFood"(newVal){
+        if(this.datesForFood.length > 2){
+          this.datesForFood = newVal.slice(0,2)
+        }
+    },
+    "datesForHealth"(newVal){
+        if(this.datesForHealth.length > 2){
+          this.datesForHealth = newVal.slice(0,2)
+        }
+    },
   },
   methods: {
     fixScreen() {
