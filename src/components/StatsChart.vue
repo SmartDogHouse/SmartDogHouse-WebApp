@@ -18,7 +18,10 @@
             width="110%"
           >
             <v-card-title class="justify-center">Statistiche</v-card-title>
-            <line-chart class="my-4 mx-auto" :data="lineChartData"></line-chart>
+          <div v-switch="chartType">
+            <line-chart v-case="'line'" class="my-4 mx-auto" :data="lineChartData"/>
+            <pie-chart v-case="'pie'" class="my-4 mx-auto" :data="pieChartData"/>     
+          </div>
           </v-card>
         </v-hover>
       </template>
@@ -43,8 +46,11 @@
               >
                 <v-card-title class="justify-center"
                   >{{name}}</v-card-title>
-                <line-chart :data="lineChartData"></line-chart>
-              </v-card>
+          <div v-switch="chartType">
+            <line-chart v-case="'line'"  :data="lineChartData"/>
+            <pie-chart v-case="'pie'"  :data="pieChartData"/>     
+          </div>
+                        </v-card>
               <v-card
                 class="flex-column d-flex align-stretch mx-auto my-2"
                 width="95%"
@@ -75,6 +81,11 @@ export default {
   props: {
     name: String,
     lineChartData: Array,
+    pieChartData: Array,
+    chartType: {
+        type: String,
+        default: 'line'
+      } 
   },
   data: () => ({
     dialog: false,

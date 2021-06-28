@@ -42,7 +42,7 @@
       </v-list>
       <v-list-item>
         <v-list-item-content>
-          <StatsChart :lineChartData ="foodChartData" :name="lineChartHealthName"/>
+          <StatsChart :lineChartData ="foodChartData" :name="lineChartFoodName"/>
             <v-menu
           ref="menuFood"
           v-model="menuFood"
@@ -115,7 +115,7 @@
 
         <v-list-item>
           <v-list-item-content>
-            <StatsChart :lineChartData ="healthChartData" :name="lineChartFoodName"/>
+            <StatsChart :lineChartData ="healthChartData" :name="lineChartHealthName"/>
             <v-menu
           ref="menuHealth"
           v-model="menuHealth"
