@@ -1,12 +1,14 @@
 <template>
   <div class="Administration">
-   
+     <StatsChart :pieChartData ="{'2017-05-13': 2, '2017-05-14': 5}" :name="'lineChartFoodName'"/>
   </div>
 </template>
 
 <script>
 export default {
-  components: {},
+  components: {
+      StatsChart: () => import("../components/StatsChart"),
+  },
   name: "",
   props: {
     names: Array,

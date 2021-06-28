@@ -29,7 +29,6 @@
           <v-row>
             <v-col cols="12" sm="5">
               <v-sheet rounded="lg" min-height="268">
-                
                 <dogScroller @dogChoosed="onClickDog" :names="names" :codes="codes"></dogScroller>
               </v-sheet>
             </v-col>
@@ -42,9 +41,18 @@
           </v-row>
         </v-container>
         <v-container v-case="'Gestore'">
+                      <AdministrationCommands/>
           <v-row>
             <v-col>
-              <h1> Work in progress1!</h1>
+              <v-sheet rounded="lg" min-height="268">
+                <dogScroller @dogChoosed="onClickDog" :names="names" :codes="codes"></dogScroller>
+              </v-sheet>
+            </v-col>
+
+            <v-col cols="12" sm="7">
+              <v-sheet rounded="lg" min-height="268">
+                <dogView :dogData="actualDog"></dogView>
+              </v-sheet>
             </v-col>
           </v-row>
         </v-container>
@@ -52,7 +60,6 @@
           <v-row>
             <v-col cols="12" sm="5">
               <v-sheet rounded="lg" min-height="268">
-                
                 <dogScroller @dogChoosed="onClickDog" :names="names" :codes="codes"></dogScroller>
               </v-sheet>
             </v-col>
@@ -87,6 +94,7 @@
 export default {
   components: {
     //  StatsChart: () => import("../components/StatsChart"),
+    AdministrationCommands: () => import("../components/AdministrationCommands"),
     CameraFrame: () => import("../components/CameraFrame"),
     dogScroller: () => import("../components/DogScroller"),
     dogView: () => import("../components/DogView"),
