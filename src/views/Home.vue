@@ -30,13 +30,13 @@
           <v-row>
             <v-col cols="12" sm="5">
               <v-sheet rounded="lg" min-height="268">
-                <dogScroller @dogChoosed="onClickDog" :names="names" :codes="codes"></dogScroller>
+                <dogScroller  @dogChoosed="onClickDog" :names="names" :codes="codes"></dogScroller>
               </v-sheet>
             </v-col>
 
             <v-col cols="12" sm="7">
               <v-sheet rounded="lg" min-height="268">
-                <dogView :dogData="actualDog"></dogView>
+                <dogView :permissions="['foodAttendant']" :dogData="actualDog"/>
               </v-sheet>
             </v-col>
           </v-row>
@@ -48,13 +48,13 @@
           <v-row>
             <v-col>
               <v-sheet rounded="lg" min-height="268">
-                <dogScroller @dogChoosed="onClickDog" :names="names" :codes="codes"></dogScroller>
+                <dogScroller  @dogChoosed="onClickDog" :names="names" :codes="codes"></dogScroller>
               </v-sheet>
             </v-col>
 
             <v-col cols="12" sm="7">
               <v-sheet rounded="lg" min-height="268">
-                <dogView :dogData="actualDog"></dogView>
+                <dogView :permissions="['manager']" :dogData="actualDog"/>
               </v-sheet>
             </v-col>
           </v-row>
@@ -64,13 +64,13 @@
           <v-row>
             <v-col cols="12" sm="5">
               <v-sheet rounded="lg" min-height="268">
-                <dogScroller @dogChoosed="onClickDog" :names="names" :codes="codes"></dogScroller>
+                <dogScroller  @dogChoosed="onClickDog" :names="names" :codes="codes"></dogScroller>
               </v-sheet>
             </v-col>
 
             <v-col cols="12" sm="7">
               <v-sheet rounded="lg" min-height="268">
-                <dogView :dogData="actualDog"></dogView>
+                <dogView  :permissions="['vet']" :dogData="actualDog"/>
               </v-sheet>
             </v-col>
           </v-row>

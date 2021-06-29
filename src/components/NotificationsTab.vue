@@ -4,7 +4,7 @@
           <h2>Notifiche</h2>
           <v-divider />
 
-          <div v-for="item in notifications" :key="item">
+          <div v-for="item in notifications" :key="item.msg">
           <v-list-item three-line>
             <v-list-item-content>
               <v-list-item-title>{{item.name}}</v-list-item-title>
