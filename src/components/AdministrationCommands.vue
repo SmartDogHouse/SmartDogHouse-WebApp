@@ -13,7 +13,7 @@
         <v-col cols="6">
           <StatsChart
             :lineChartData="umidityAndTemperatureHistory"
-            :name="columnChartName"
+            :name="linemnChartName"
             :chartType="'line'"
           />
         </v-col>
@@ -33,7 +33,7 @@ export default {
     data() {
     return {
       consumption: [['Cagnino', 44], ['Cagnone', 23]],
-      umidityAndTemperatureHistory: [['Cagnino', 44], ['Cagnone', 23]],
+      umidityAndTemperatureHistory: [['Cagnino', 44], ['Cagnone1', 233],['Cagnino1', 443], ['Cagnone', 234]],
       columnChartName: "Statistiche consumi",
       linemnChartName: "Statistiche umidita e temperatura"
 
