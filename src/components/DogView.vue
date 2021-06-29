@@ -243,6 +243,17 @@
       </v-list>
       <v-divider/>
       <v-list-item-action>
+        <v-col>
+          <h2>Piccolo</h2>
+          <h4>222</h4>
+
+          <h2>Medio</h2>
+          <h4>444</h4>
+
+          <h2>Grande</h2>
+          <h4>667</h4>
+
+        </v-col>
           <v-btn @click="sendStats" depressed small class="px-8 py-4">
             Applica
           </v-btn>
@@ -314,7 +325,7 @@ export default {
         max: 1000,
         color: "red",
         tagliaSelezionata: "piccolo",
-        taglia: ["Piccolo", "Medio", "Grande", "Gigantico"],
+        taglia: ["Piccolo", "Medio", "Grande"],
       },
 
       settings: [],
