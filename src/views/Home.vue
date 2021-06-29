@@ -43,6 +43,8 @@
         </v-container>
         <v-container v-case="'Gestore'">
           <AdministrationCommands/>
+      <v-divider />
+        <EnvStats :umidity="umidity" :temperature="temperature" />
           <v-row>
             <v-col>
               <v-sheet rounded="lg" min-height="268">
@@ -74,6 +76,8 @@
           </v-row>
         </v-container>
         <v-container v-case="'Addetto alla videosorveglianza'">
+                <v-divider />
+        <EnvStats :umidity="umidity" :temperature="temperature" />
           <NotificationsTab class="my-4" :notifications="notificationsSUpervisor"/>
           <v-row>
             <v-col>
@@ -97,6 +101,7 @@
 export default {
   components: {
     //  StatsChart: () => import("../components/StatsChart"),
+    EnvStats: () => import("../components/EnvStats"),
     NotificationsTab: () => import("../components/NotificationsTab"),
     AdministrationCommands: () => import("../components/AdministrationCommands"),
     CameraFrame: () => import("../components/CameraFrame"),
@@ -108,9 +113,10 @@ export default {
     notificationsHealthManager: [],
    // notificationsSUpervisor: [{"name":"Allarmissimo", "msg":"fuggisci"}],
     notificationsSUpervisor: [{"name":"Allarmissimo", "msg":"fuggisci"}],
-
-    dogs: [{}],
-    view:"1",
+    temperature : "34",
+    umidity : "34",    
+    dogs: [],
+    view:"",
     names: [],
     codes: [],
     actualDog: {},

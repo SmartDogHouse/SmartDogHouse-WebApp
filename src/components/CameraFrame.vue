@@ -41,7 +41,6 @@
 export default {
   components: {    
   },
-  name: "",
   props: {
     names: Array,
     codes: Array,
