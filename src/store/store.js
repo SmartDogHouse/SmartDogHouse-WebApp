@@ -17,39 +17,12 @@ export default new Vuex.Store({
     SAVE_DOGS(state, schemas) {
       state.dogs = schemas;
     },
-   /* SAVE_ALL(state, schemas) {
-      state.pieData = schemas.statsDev;
-
-      let donationMap = schemas.statsDon;
-      let requestMap = schemas.statsReq;
-
-      var newLineChartData = [
-        {
-          name: "Donazioni",
-          data: {}
-        },
-        {
-          name: "Ritiri",
-          data: {}
-        }
-      ];
-
-      donationMap.forEach((array) => {
-        newLineChartData[0].data[array[0]] = array[1];
-      });
-
-      requestMap.forEach((array) => {
-        newLineChartData[1].data[array[0]] = array[1];
-      });
-      state.all = newLineChartData;
-    }*/
   },
   actions: {
      load({ commit }) {
       Vue.axios
         .get("/req/dogs")
         .then((response) => {
-          console.log(response.data.body);
           commit("SAVE_DOGS", response.data.body);
         })
         .catch(() => {

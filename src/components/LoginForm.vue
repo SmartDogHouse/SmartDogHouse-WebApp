@@ -2,7 +2,7 @@
   <v-card class="elevation-12">
     <v-toolbar dark color="primary">
       <v-toolbar-title>Login form</v-toolbar-title>
-      <v-spacer/>
+      <v-spacer />
     </v-toolbar>
     <v-card-text>
       <v-form>
@@ -22,10 +22,10 @@
       </v-form>
     </v-card-text>
     <v-card-actions>
-      <v-spacer/>
-        <v-btn color="primary" v-on:click="tryLogIn">Login</v-btn>
-        <v-btn color="primary" v-on:click="tryLogIn1">Test</v-btn>
-      <v-spacer/>
+      <v-spacer />
+      <v-btn color="primary" v-on:click="tryLogIn">Login</v-btn>
+      <v-btn color="primary" v-on:click="tryLogIn1">Test</v-btn>
+      <v-spacer />
     </v-card-actions>
   </v-card>
 </template>
@@ -53,22 +53,21 @@ export default {
     tryLogIn() {
       this.$router.push("/Home").catch(() => {});
 
-      this.axios.get("/req/auth",{ crossdomain: true }).then((response) => {
+     /* this.axios.get("/req/auth",{ crossdomain: true }).then((response) => {
         console.log(response.data);
-      });
+      });*/
     },
         tryLogIn1() {
    //   this.$router.push("/Home").catch(() => {});
 
-      this.axios.get("/req/dogs",{ crossdomain: true }).then((response) => {
+   /*  this.axios.get("/req/dogs",{ crossdomain: true }).then((response) => {
         console.log(response.data);
-      });
+      });*/
 
-            this.axios.get("/req/auth",{ crossdomain: true }).then((response) => {
+       /*     this.axios.get("/req/auth",{ crossdomain: true }).then((response) => {
         console.log(response.data);
-      });
+      });*/
     },
   },
 };
 </script>
-

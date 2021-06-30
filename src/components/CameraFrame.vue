@@ -39,7 +39,7 @@
 
 <script>
 export default {
-  components: {    
+  components: {
   },
   props: {
     names: Array,

@@ -18,22 +18,34 @@
             width="110%"
           >
             <v-card-title class="justify-center">Statistiche</v-card-title>
-          <div v-switch="chartType">
-            <line-chart v-case="'line'" class="my-4 mx-auto" :data="lineChartData"/>
-            <pie-chart v-case="'pie'" class="my-4 mx-auto" :data="pieChartData"/>     
-            <column-chart v-case="'column'" class="my-4 mx-auto" :data="columnChartData"/>     
-          </div>
+            <div v-switch="chartType">
+              <line-chart
+                v-case="'line'"
+                class="my-4 mx-auto"
+                :data="lineChartData"
+              />
+              <pie-chart
+                v-case="'pie'"
+                class="my-4 mx-auto"
+                :data="pieChartData"
+              />
+              <column-chart
+                v-case="'column'"
+                class="my-4 mx-auto"
+                :data="columnChartData"
+              />
+            </div>
           </v-card>
         </v-hover>
       </template>
 
       <v-card>
         <v-toolbar dark color="indigo">
-          <v-spacer/>
+          <v-spacer />
           <v-toolbar-title class="font-weight-bold text--white"
             >Statistiche in dettaglio</v-toolbar-title
           >
-          <v-spacer/>
+          <v-spacer />
           <v-btn icon dark @click="dialog = false">
             <v-icon>mdi-close</v-icon>
           </v-btn>
@@ -45,14 +57,13 @@
                 class="flex-column d-flex align-stretch mx-auto my-2"
                 width="95%"
               >
-                <v-card-title class="justify-center"
-                  >{{name}}</v-card-title>
-          <div v-switch="chartType">
-            <line-chart v-case="'line'"  :data="lineChartData"/>
-            <pie-chart v-case="'pie'"  :data="pieChartData"/>    
-            <column-chart v-case="'column'"  :data="columnChartData"/>            
-          </div>
-          </v-card>
+                <v-card-title class="justify-center">{{name}}</v-card-title>
+                <div v-switch="chartType">
+                  <line-chart v-case="'line'" :data="lineChartData" />
+                  <pie-chart v-case="'pie'" :data="pieChartData" />
+                  <column-chart v-case="'column'" :data="columnChartData" />
+                </div>
+              </v-card>
               <v-card
                 class="flex-column d-flex align-stretch mx-auto my-2"
                 width="95%"
@@ -88,7 +99,7 @@ export default {
     chartType: {
         type: String,
         default: 'line'
-      } 
+      }
   },
   data: () => ({
     dialog: false,

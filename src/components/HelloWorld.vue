@@ -90,9 +90,9 @@ export default {
     tryLogIn() {
       this.$router.push("/Home").catch(() => {});
 
-      this.axios.get("https://httpbin.org/get").then((response) => {
-        console.log(response.data);
-      });
+     // this.axios.get("https://httpbin.org/get").then((response) => {
+     //  console.log(response.data);
+     // });
     },
   },
 };
