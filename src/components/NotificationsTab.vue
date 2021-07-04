@@ -1,4 +1,5 @@
 <template>
+<!-- Represent the notifications tab for the user, a black text area where each text line has its own button for clean the notification -->
   <div class="Notification">
     <v-card class="mx-auto" min-width="10vw" tile>
       <h2>Notifiche</h2>

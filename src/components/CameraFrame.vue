@@ -1,4 +1,5 @@
 <template>
+<!-- Represent one IP camera frame that is used for watch the actual video streaming, it provides the possibility to switch the camera-->
   <div class="camera">
     <v-row min-width="100%">
       <v-col min-width="100%">

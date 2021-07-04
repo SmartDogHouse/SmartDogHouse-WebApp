@@ -1,4 +1,5 @@
 <template>
+<!-- Represent the list of all dogs, each dog contain a button for choose it-->
   <div>
     <v-card class="mx-auto" max-width="400">
       <v-card-title class="white--text orange darken-4">
@@ -87,7 +88,7 @@
 
       <v-divider />
 
-      <v-list  subheader three-line>
+      <v-list subheader three-line>
         <v-subheader>Parametri vitali</v-subheader>
         <v-list-item>
           <v-list-item-content>
@@ -162,8 +163,13 @@
 
       <v-list flat subheader three-line>
         <v-subheader>Soglie impostabili</v-subheader>
-        <v-list-item-group v-if="checkPermissions('vet') || checkPermissions('manager')" v-model="settings" multiple active-class="">
-        <v-subheader>Sezione salute</v-subheader>
+        <v-list-item-group
+          v-if="checkPermissions('vet') || checkPermissions('manager')"
+          v-model="settings"
+          multiple
+          active-class=""
+        >
+          <v-subheader>Sezione salute</v-subheader>
 
           <v-list-item>
             <template v-slot:default="{ active }">
@@ -198,61 +204,61 @@
               </v-list-item-content>
             </template>
           </v-list-item>
-        <v-list-item>
-          <v-slider
-            v-model="sliderPatient.val"
-            :label="sliderPatient.label"
-            :thumb-color="sliderPatient.color"
-            thumb-label="always"
-            step="50"
-            ticks="always"
-            tick-size="4"
-            :min="sliderPatient.min"
-            :max="sliderPatient.max"
-          ></v-slider>
-        </v-list-item>
+          <v-list-item>
+            <v-slider
+              v-model="sliderPatient.val"
+              :label="sliderPatient.label"
+              :thumb-color="sliderPatient.color"
+              thumb-label="always"
+              step="50"
+              ticks="always"
+              tick-size="4"
+              :min="sliderPatient.min"
+              :max="sliderPatient.max"
+            ></v-slider>
+          </v-list-item>
         </v-list-item-group>
 
-  
-        <template v-if="checkPermissions('foodAttendant') || checkPermissions('manager')" >
-        <v-subheader>Sezione cibo</v-subheader>
-  
-        <v-list-item>
-          <v-slider
-            v-model="sliderSize.val"
-            :label="sliderSize.label"
-            :thumb-color="sliderSize.color"
-            thumb-label="always"
-            step="50"
-            ticks="always"
-            tick-size="4"
-            :min="sliderSize.min"
-            :max="sliderSize.max"
-          ></v-slider>
-        </v-list-item>
-        <v-list-item>
-          <v-select
-            :items="sliderSize.taglia"
-            filled
-            v-model="sliderSize.tagliaSelezionata"
-            label="Taglia animale"
-          ></v-select>
-        </v-list-item>
+        <template
+          v-if="checkPermissions('foodAttendant') || checkPermissions('manager')"
+        >
+          <v-subheader>Sezione cibo</v-subheader>
 
-        <v-col>
-          <h2>Piccolo</h2>
-          <h4>222</h4>
-          <h2>Medio</h2>
-          <h4>444</h4>
-          <h2>Grande</h2>
-          <h4>667</h4>
-        </v-col>
+          <v-list-item>
+            <v-slider
+              v-model="sliderSize.val"
+              :label="sliderSize.label"
+              :thumb-color="sliderSize.color"
+              thumb-label="always"
+              step="50"
+              ticks="always"
+              tick-size="4"
+              :min="sliderSize.min"
+              :max="sliderSize.max"
+            ></v-slider>
+          </v-list-item>
+          <v-list-item>
+            <v-select
+              :items="sliderSize.taglia"
+              filled
+              v-model="sliderSize.tagliaSelezionata"
+              label="Taglia animale"
+            ></v-select>
+          </v-list-item>
+
+          <v-col>
+            <h2>Piccolo</h2>
+            <h4>222</h4>
+            <h2>Medio</h2>
+            <h4>444</h4>
+            <h2>Grande</h2>
+            <h4>667</h4>
+          </v-col>
         </template>
-
       </v-list>
 
-        <v-divider />
-        
+      <v-divider />
+
       <v-list-item-action>
         <v-btn @click="sendStats" depressed small class="px-8 py-4">
           Applica
@@ -273,7 +279,7 @@ export default {
     permissions: {
         type: Array,
         default:()=> []
-      } 
+      }
   },
   data() {
     return {

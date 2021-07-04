@@ -1,4 +1,5 @@
 <template>
+<!-- Represent the list of all command for the manager, it also contains some information, such as humidity temperature and structure food consumption-->
   <div class="Administration">
     <v-card>
       <v-row class="ma-4">

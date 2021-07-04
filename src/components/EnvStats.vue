@@ -1,4 +1,5 @@
 <template>
+<!-- Represent the environment starts, it is composed only by two line-->
   <v-row class="ma-4">
     <v-col cols="6">
       <h1>Umidità</h1>

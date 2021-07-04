@@ -1,4 +1,5 @@
 <template>
+<!-- Represent the main view for each user on the website, it switches the component page based to the user privilege, hiding and showing the respective buttons -->
   <div>
     <v-app-bar app color="grey" flat>
       <v-tabs centered class="ml-n9" color="orange darken-4">

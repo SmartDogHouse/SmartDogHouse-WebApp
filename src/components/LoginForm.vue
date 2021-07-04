@@ -1,4 +1,5 @@
 <template>
+<!-- Represent the classic login form with user and password, no registrarion is possible-->
   <v-card class="elevation-12">
     <v-toolbar dark color="primary">
       <v-toolbar-title>Login form</v-toolbar-title>
