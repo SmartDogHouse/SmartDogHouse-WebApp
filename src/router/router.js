@@ -17,6 +17,7 @@ const routes = [
     name: "Home",
     component: Home
   },
+  //Avoid 404 pages
   {
     path: "*",
     redirect: "/Login"

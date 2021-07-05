@@ -33,10 +33,34 @@
 
     <v-main class="grey">
       <div v-switch="view">
-        <v-container v-case="'Addetto cibo'">
+          <v-container v-case="links[0]">
+          <AdministrationCommands />
+          <v-divider />
+          <EnvStats :umidity="umidity" :temperature="temperature" />
+          <v-row>
+            <v-col>
+              <v-sheet rounded="lg" min-height="268">
+                <dogScroller
+                  @dogChoosed="onClickDog"
+                  :names="names"
+                  :codes="codes"
+                ></dogScroller>
+              </v-sheet>
+            </v-col>
+
+            <v-col cols="12" sm="7">
+              <v-sheet rounded="lg" min-height="268">
+                <dogView :permissions="['manager']" :dogData="actualDog" />
+              </v-sheet>
+            </v-col>
+          </v-row>
+        </v-container>
+        <v-container v-case="links[1]">
           <NotificationsTab
             class="my-4"
             :notifications="notificationsFoodAttendant"
+            :owner="links[1]"
+
           />
           <v-row>
             <v-col cols="12" sm="5">
@@ -59,32 +83,13 @@
             </v-col>
           </v-row>
         </v-container>
-        <v-container v-case="'Gestore'">
-          <AdministrationCommands />
-          <v-divider />
-          <EnvStats :umidity="umidity" :temperature="temperature" />
-          <v-row>
-            <v-col>
-              <v-sheet rounded="lg" min-height="268">
-                <dogScroller
-                  @dogChoosed="onClickDog"
-                  :names="names"
-                  :codes="codes"
-                ></dogScroller>
-              </v-sheet>
-            </v-col>
-
-            <v-col cols="12" sm="7">
-              <v-sheet rounded="lg" min-height="268">
-                <dogView :permissions="['manager']" :dogData="actualDog" />
-              </v-sheet>
-            </v-col>
-          </v-row>
-        </v-container>
-        <v-container v-case="'Addetto alla salute'">
+        <v-container v-case="links[2]">
           <NotificationsTab
+            @selected="removeNotification"
             class="my-4"
             :notifications="notificationsHealthManager"
+            :owner="links[2]"
+
           />
           <v-row>
             <v-col cols="12" sm="5">
@@ -104,12 +109,15 @@
             </v-col>
           </v-row>
         </v-container>
-        <v-container v-case="'Addetto alla videosorveglianza'">
+        <v-container v-case="links[3]">
           <v-divider />
           <EnvStats :umidity="umidity" :temperature="temperature" />
           <NotificationsTab
+           @selected="removeNotification"
             class="my-4"
             :notifications="notificationsSUpervisor"
+            :owner="links[3]"
+
           />
           <v-row>
             <v-col>
@@ -117,7 +125,7 @@
             </v-col>
           </v-row>
         </v-container>
-        <v-container v-case="'Altro addetto'">
+        <v-container v-case="links[4]">
           <v-row>
             <v-col>
               <h1>Work in progress!</h1>
@@ -186,6 +194,27 @@ export default {
     },
     changeView(str) {
       this.view = str
+    },
+    removeNotification(notification) {
+      switch (notification.owner) {
+        case this.links[0]:
+          
+          break;
+        case this.links[1]:
+        console.log(notification.msg + notification.owner)
+
+          break;
+        case this.links[2]:
+        console.log(notification.msg + notification.owner)
+          
+          break;
+        case this.links[3]:
+        console.log(notification.msg + notification.owner)          
+          break;
+        default:
+          break;
+      }
+
     },
   },
 };

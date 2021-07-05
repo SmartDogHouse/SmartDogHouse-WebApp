@@ -204,6 +204,7 @@
               </v-list-item-content>
             </template>
           </v-list-item>
+        </v-list-item-group>
           <v-list-item>
             <v-slider
               v-model="sliderPatient.val"
@@ -217,7 +218,6 @@
               :max="sliderPatient.max"
             ></v-slider>
           </v-list-item>
-        </v-list-item-group>
 
         <template
           v-if="checkPermissions('foodAttendant') || checkPermissions('manager')"
