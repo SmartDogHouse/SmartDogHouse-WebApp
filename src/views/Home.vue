@@ -132,7 +132,6 @@
 <script>
 export default {
   components: {
-    //  StatsChart: () => import("../components/StatsChart"),
     EnvStats: () => import("../components/EnvStats"),
     NotificationsTab: () => import("../components/NotificationsTab"),
     AdministrationCommands: () => import("../components/AdministrationCommands"),
@@ -143,7 +142,6 @@ export default {
   data: () => ({
     notificationsFoodAttendant: [],
     notificationsHealthManager: [],
-   // notificationsSUpervisor: [{"name":"Allarmissimo", "msg":"fuggisci"}],
     notificationsSUpervisor: [{"name":"Allarmissimo", "msg":"fuggisci"}],
     temperature : "34",
     umidity : "34",
@@ -159,6 +157,7 @@ export default {
   props: {},
   created() {
     this.$store.dispatch("load");
+    this.changeView("Gestore")
   },
   watch: {
     group() {

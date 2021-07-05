@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-smartdoghousewebapp-dev-12947-authRole",
+      "UnauthRoleArn": "arn:aws:iam::091954080061:role/amplify-smartdoghousewebapp-dev-12947-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::091954080061:role/amplify-smartdoghousewebapp-dev-12947-authRole",
+      "Region": "eu-west-2",
+      "DeploymentBucketName": "amplify-smartdoghousewebapp-dev-12947-deployment",
+      "UnauthRoleName": "amplify-smartdoghousewebapp-dev-12947-unauthRole",
+      "StackName": "amplify-smartdoghousewebapp-dev-12947",
+      "StackId": "arn:aws:cloudformation:eu-west-2:091954080061:stack/amplify-smartdoghousewebapp-dev-12947/2a4842b0-dd6b-11eb-b20e-02e8cf51f12c",
+      "AmplifyAppId": "d5fwjuln0w1if"
+    }
+  }
+}
