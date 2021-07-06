@@ -174,13 +174,13 @@ export default {
     "$store.state.dogs"(x) {
       this.dogs = x;
       this.names = this.dogs.map(x => x.name)
-      this.codes = this.dogs.map(x => x.id_chip)
+      this.codes = this.dogs.map(x => x.chip_id)
   }
   },
   methods: {
     onClickDog (value) {
-      console.log(this.dogs.find(dog => dog.id_chip === value))
-      this.actualDog = this.dogs.find(dog => dog.id_chip === value)
+      console.log(this.dogs.find(dog => dog.chip_id === value))
+      this.actualDog = this.dogs.find(dog => dog.chip_id === value)
     },
     logOut() {
       this.$router.push("/Login").catch(() => {});

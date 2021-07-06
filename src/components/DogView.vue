@@ -19,7 +19,7 @@
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title>ID</v-list-item-title>
-            <v-list-item-subtitle>{{dogData.id_chip}}</v-list-item-subtitle>
+            <v-list-item-subtitle>{{dogData.chip_id}}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -31,7 +31,7 @@
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title>Cibo</v-list-item-title>
-            <v-list-item-subtitle>VVV</v-list-item-subtitle>
+            <v-list-item-subtitle>XXX</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
         <v-list-item>
@@ -162,49 +162,17 @@
       <v-divider />
 
       <v-list flat subheader three-line>
-        <v-subheader>Soglie impostabili</v-subheader>
-        <v-list-item-group
-          v-if="checkPermissions('vet') || checkPermissions('manager')"
-          v-model="settings"
-          multiple
-          active-class=""
-        >
-          <v-subheader>Sezione salute</v-subheader>
+        <v-subheader><strong>Soglie impostabili</strong></v-subheader>
 
-          <v-list-item>
-            <template v-slot:default="{ active }">
-              <v-list-item-action>
-                <v-checkbox :input-value="active"></v-checkbox>
-              </v-list-item-action>
+          <v-subheader> <strong>Sezione salute</strong></v-subheader>
 
-              <v-list-item-content>
-                <v-list-item-title>In degenza</v-list-item-title>
-              </v-list-item-content>
-            </template>
-          </v-list-item>
-          <v-list-item>
-            <template v-slot:default="{ active }">
-              <v-list-item-action>
-                <v-checkbox :input-value="active"></v-checkbox>
-              </v-list-item-action>
-
-              <v-list-item-content>
-                <v-list-item-title>In terapia</v-list-item-title>
-              </v-list-item-content>
-            </template>
-          </v-list-item>
-          <v-list-item>
-            <template v-slot:default="{ active }">
-              <v-list-item-action>
-                <v-checkbox :input-value="active"></v-checkbox>
-              </v-list-item-action>
-
-              <v-list-item-content>
-                <v-list-item-title>In osservazione</v-list-item-title>
-              </v-list-item-content>
-            </template>
-          </v-list-item>
-        </v-list-item-group>
+    <v-radio-group v-model="radios">
+            <v-radio v-for="item in healthStates" :key="item" :value=item>
+              <template v-slot:label>
+                 <strong class="primary--text">{{item}}</strong>
+              </template>
+            </v-radio>
+          </v-radio-group>
           <v-list-item>
             <v-slider
               v-model="sliderPatient.val"
@@ -222,7 +190,7 @@
         <template
           v-if="checkPermissions('foodAttendant') || checkPermissions('manager')"
         >
-          <v-subheader>Sezione cibo</v-subheader>
+          <v-subheader><strong>Sezione cibo</strong></v-subheader>
 
           <v-list-item>
             <v-slider
@@ -239,9 +207,9 @@
           </v-list-item>
           <v-list-item>
             <v-select
-              :items="sliderSize.taglia"
+              :items="sliderSize.size"
               filled
-              v-model="sliderSize.tagliaSelezionata"
+              v-model="sliderSize.selectedSize"
               label="Taglia animale"
             ></v-select>
           </v-list-item>
@@ -275,7 +243,24 @@ export default {
     StatsChart: () => import("../components/StatsChart"),
   },
   props: {
-    dogData: Object,
+      dogData: {
+      type: Object,
+       default: () => ({
+        "size": 0,
+        "temp_lower_bound": 0,
+        "chip_id": "",
+        "heartbeat_upper_bound": 0,
+        "cage_id": 0,
+        "status": "",
+        "SK": "",
+        //"SK": "#PROFILE#c01",
+        "temp_upper_bound": 0,
+        "PK": "",
+        //"PK": "DOG#c01",
+        "name": "",
+        "heartbeat_lower_bound": 0
+       })
+    },
     permissions: {
         type: Array,
         default:()=> []
@@ -284,7 +269,7 @@ export default {
   data() {
     return {
     //  datesForFood: ['2020-01-01', '2021-01-01'],D
-
+      healthStates: ["In salute", "In degenza", "In terapia","In osservazione"],
       datesForFood: [],
       menuFood: false,
       datesForHealth: [],
@@ -334,11 +319,10 @@ export default {
         val: 100,
         max: 1000,
         color: "red",
-        tagliaSelezionata: "piccolo",
-        taglia: ["Piccolo", "Medio", "Grande"],
+        selectedSize: "piccolo",
+        size: ["Piccolo", "Medio", "Grande"],
       },
-
-      settings: [],
+      radios: 'Duckduckgo',
     };
   },
   watch:{
