@@ -1,5 +1,5 @@
 <template>
-<!-- Represent the list of all dogs, each dog contain a button for choose it-->
+  <!-- Represent the list of all dogs, each dog contain a button for choose it-->
   <div>
     <v-card class="mx-auto" max-width="400">
       <v-card-title class="white--text orange darken-4">
@@ -13,13 +13,29 @@
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title>Nome</v-list-item-title>
-            <v-list-item-subtitle>{{dogData.name}}</v-list-item-subtitle>
+            <v-list-item-subtitle>{{$store.state.selectedDog.name}}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title>ID</v-list-item-title>
-            <v-list-item-subtitle>{{dogData.chip_id}}</v-list-item-subtitle>
+            <v-list-item-subtitle>{{$store.state.selectedDog.chip_id}}</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item>
+          <v-list-item-content>
+            <v-list-item-title>Taglia</v-list-item-title>
+            <v-list-item-subtitle
+              >{{getDogSizeTraslation($store.state.selectedDog.dog_size)}}</v-list-item-subtitle
+            >
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item>
+          <v-list-item-content>
+            <v-list-item-title>Gabbia</v-list-item-title>
+            <v-list-item-subtitle
+              >{{$store.state.selectedDog.cage_id}}</v-list-item-subtitle
+            >
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -164,28 +180,88 @@
       <v-list flat subheader three-line>
         <v-subheader><strong>Soglie impostabili</strong></v-subheader>
 
-          <v-subheader> <strong>Sezione salute</strong></v-subheader>
+        <v-subheader> <strong>Sezione salute</strong></v-subheader>
+          <!-- Slider lower temperature -->
+        <v-list-item>
+          <v-slider
+            v-model="sliderTemperature.valLower"
+            :label="sliderTemperature.labelLower"
+            :thumb-color="sliderTemperature.color"
+            thumb-label="always"
+            step="1"
+            ticks="always"
+            tick-size="4"
+            :min="sliderTemperature.minLower"
+            :max="sliderTemperature.maxLower"
+          ></v-slider>
+        </v-list-item>
+                  <!-- Slider upper temperature -->
 
-    <v-radio-group v-model="radios">
-            <v-radio v-for="item in healthStates" :key="item" :value=item>
+          <v-list-item>
+          <v-slider
+            v-model="sliderTemperature.valUpper"
+            :label="sliderTemperature.labelUpper"
+            :thumb-color="sliderTemperature.color"
+            thumb-label="always"
+            step="1"
+            ticks="always"
+            tick-size="4"
+            :min="sliderTemperature.valLower"
+            :max="sliderTemperature.maxUpper"
+          ></v-slider>
+        </v-list-item>
+                  <!-- Slider upper heartbeat -->
+
+                <v-list-item>
+          <v-slider
+            v-model="sliderHeartbeat.valLower"
+            :label="sliderHeartbeat.labelLower"
+            :thumb-color="sliderHeartbeat.color"
+            thumb-label="always"
+            step="1"
+            ticks="always"
+            tick-size="1"
+            :min="sliderHeartbeat.minLower"
+            :max="sliderHeartbeat.maxLower"
+          ></v-slider>
+        </v-list-item>
+                  <!-- Slider upper heartbeat -->
+
+                <v-list-item>
+          <v-slider
+            v-model="sliderHeartbeat.valUpper"
+            :label="sliderHeartbeat.labelUpper"
+            :thumb-color="sliderHeartbeat.color"
+            thumb-label="always"
+            step="1"
+            ticks="always"
+            tick-size="1"
+            :min="sliderHeartbeat.valLower"
+            :max="sliderHeartbeat.maxUpper"
+          ></v-slider>
+        </v-list-item>
+        <v-list-item>
+          <v-radio-group v-model="healthRdios">
+            <v-radio v-for="item in healthStates" :key="item" :value="item">
               <template v-slot:label>
-                 <strong class="primary--text">{{item}}</strong>
+                <strong class="primary--text">{{item}}</strong>
               </template>
             </v-radio>
           </v-radio-group>
-          <v-list-item>
-            <v-slider
-              v-model="sliderPatient.val"
-              :label="sliderPatient.label"
-              :thumb-color="sliderPatient.color"
-              thumb-label="always"
-              step="50"
-              ticks="always"
-              tick-size="4"
-              :min="sliderPatient.min"
-              :max="sliderPatient.max"
-            ></v-slider>
-          </v-list-item>
+        </v-list-item>
+        <v-list-item>
+          <v-slider
+            v-model="sliderPatient.val"
+            :label="sliderPatient.label"
+            :thumb-color="sliderPatient.color"
+            thumb-label="always"
+            step="50"
+            ticks="always"
+            tick-size="4"
+            :min="sliderPatient.min"
+            :max="sliderPatient.max"
+          ></v-slider>
+        </v-list-item>
 
         <template
           v-if="checkPermissions('foodAttendant') || checkPermissions('manager')"
@@ -205,6 +281,7 @@
               :max="sliderSize.max"
             ></v-slider>
           </v-list-item>
+          <v-subheader><strong>Sezione taglie</strong></v-subheader>
           <v-list-item>
             <v-select
               :items="sliderSize.size"
@@ -243,24 +320,6 @@ export default {
     StatsChart: () => import("../components/StatsChart"),
   },
   props: {
-      dogData: {
-      type: Object,
-       default: () => ({
-        "size": 0,
-        "temp_lower_bound": 0,
-        "chip_id": "",
-        "heartbeat_upper_bound": 0,
-        "cage_id": 0,
-        "status": "",
-        "SK": "",
-        //"SK": "#PROFILE#c01",
-        "temp_upper_bound": 0,
-        "PK": "",
-        //"PK": "DOG#c01",
-        "name": "",
-        "heartbeat_lower_bound": 0
-       })
-    },
     permissions: {
         type: Array,
         default:()=> []
@@ -306,6 +365,28 @@ export default {
     ],
       lineChartFoodName : "Consumi cibo e acqua",
       lineChartHealthName : "Rilevazioni vitali",
+      sliderTemperature: {
+        labelLower: "Inferiore temperatura",
+        labelUpper: "Superiore temperatura",
+        minLower: 35,
+        minUpper: 35,
+        valLower: 35,
+        valUpper: 35,
+        maxUpper: 45,
+        maxLower: 45,
+        color: "purple",
+      },
+      sliderHeartbeat: {
+        labelLower: "Inferiore battiti",
+        labelUpper: "Superiore battiti",
+        minLower: 60,
+        minUpper: 60,
+        valLower: 60,
+        valUpper: 60,
+        maxUpper: 140,
+        maxLower: 140,
+        color: "blue",
+      },
       sliderPatient: {
         label: "Qta cibo degenza",
         min: 50,
@@ -322,10 +403,21 @@ export default {
         selectedSize: "piccolo",
         size: ["Piccolo", "Medio", "Grande"],
       },
-      radios: 'Duckduckgo',
+      healthRdios: '',
     };
   },
+  created: function () {
+    
+  },
   watch:{
+    "$store.state.selectedDog"(x) {
+          this.sliderHeartbeat.valLower = x.heartbeat_lower_bound
+          this.sliderHeartbeat.valUpper = x.heartbeat_upper_bound
+          this.sliderTemperature.valLower = x.temp_lower_bound
+          this.sliderTemperature.valUpper = x.temp_upper_bound
+          this.healthRdios = this.getDogHealthState(x.status)
+          console.log(x.heartbeat_lower_bound)
+    },
     "datesForFood"(newVal){
         if(this.datesForFood.length > 2){
           this.datesForFood = newVal.slice(0,2)
@@ -341,6 +433,40 @@ export default {
     fixScreen() {
       document.documentElement.style.overflow = "hidden";
       document.body.scroll = "no";
+    },
+    getDogSizeTraslation(size) {
+      switch (size) {
+        case 1:
+          return "Piccolo"
+        case 2:
+         return "Medio"
+        case 3:
+          return "Grande"
+        default:
+          return ""
+      }
+    },
+    getDogHealthState(state) {
+      switch (state) {
+        case "In salute":
+          return "healthy"
+        case "In degenza":
+         return "healthy"
+        case "In terapia":
+          return "healthy"
+        case "In osservazione":
+          return "healthy"
+        case "healthy":
+          return "In salute"
+        case "healthy1":
+         return "In degenza"
+        case "healthy2":
+          return "In terapia"
+        case "healthy3":
+          return "In osservazione"
+        default:
+          return "In salute"
+      }
     },
     checkPermissions(name) {
       return this.$props.permissions.includes(name)

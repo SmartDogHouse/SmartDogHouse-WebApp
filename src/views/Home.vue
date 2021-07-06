@@ -50,7 +50,7 @@
 
             <v-col cols="12" sm="7">
               <v-sheet rounded="lg" min-height="268">
-                <dogView :permissions="['manager']" :dogData="actualDog" />
+                <dogView :permissions="['manager']" />
               </v-sheet>
             </v-col>
           </v-row>
@@ -77,7 +77,6 @@
               <v-sheet rounded="lg" min-height="268">
                 <dogView
                   :permissions="['foodAttendant']"
-                  :dogData="actualDog"
                 />
               </v-sheet>
             </v-col>
@@ -104,7 +103,7 @@
 
             <v-col cols="12" sm="7">
               <v-sheet rounded="lg" min-height="268">
-                <dogView :permissions="['vet']" :dogData="actualDog" />
+                <dogView :permissions="['vet']" />
               </v-sheet>
             </v-col>
           </v-row>
@@ -153,11 +152,9 @@ export default {
     notificationsSUpervisor: [{"name":"Allarmissimo", "msg":"fuggisci"}],
     temperature : "34",
     umidity : "34",
-    dogs: [],
     view:"",
     names: [],
     codes: [],
-    actualDog: {},
     drawer: false,
     group: null,
     links: ["Gestore", "Addetto cibo", "Addetto alla salute","Addetto alla videosorveglianza", "Altro addetto"],
@@ -172,15 +169,14 @@ export default {
       this.drawer = false;
     },
     "$store.state.dogs"(x) {
-      this.dogs = x;
-      this.names = this.dogs.map(x => x.name)
-      this.codes = this.dogs.map(x => x.chip_id)
+      this.names = x.map(v => v.name)
+      this.codes = x.map(v => v.chip_id)
   }
   },
   methods: {
     onClickDog (value) {
-      console.log(this.dogs.find(dog => dog.chip_id === value))
-      this.actualDog = this.dogs.find(dog => dog.chip_id === value)
+      console.log(this.$store.state.dogs.find(dog => dog.chip_id === value))
+      this.$store.state.selectedDog = this.$store.state.dogs.find(dog => dog.chip_id === value)
     },
     logOut() {
       this.$router.push("/Login").catch(() => {});

@@ -10,6 +10,7 @@ export default new Vuex.Store({
     withdrawal: 0,
     donation: 0,
     dogs: [],
+    selectedDog: {},
     all: [],
     pieData: []
   },
