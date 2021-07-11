@@ -58,7 +58,7 @@
         <v-container v-case="links[1]">
           <NotificationsTab
             class="my-4"
-            :notifications="notificationsFoodAttendant"
+            :notifications="notifications"
             :owner="links[1]"
 
           />
@@ -86,7 +86,7 @@
           <NotificationsTab
             @selected="removeNotification"
             class="my-4"
-            :notifications="notificationsHealthManager"
+            :notifications="notifications"
             :owner="links[2]"
 
           />
@@ -114,7 +114,7 @@
           <NotificationsTab
            @selected="removeNotification"
             class="my-4"
-            :notifications="notificationsSUpervisor"
+            :notifications="notifications"
             :owner="links[3]"
 
           />
@@ -147,9 +147,8 @@ export default {
     dogView: () => import("../components/DogView"),
   },
   data: () => ({
-    notificationsFoodAttendant: [],
-    notificationsHealthManager: [],
-    notificationsSUpervisor: [{"name":"Allarmissimo", "msg":"fuggisci"}],
+    connection: null,
+    notifications: [],
     temperature : "34",
     umidity : "34",
     view:"",
@@ -161,9 +160,23 @@ export default {
   }),
   props: {},
   created() {
+    this.connection = new WebSocket("wss://avehtb1b8a.execute-api.eu-west-2.amazonaws.com/Prod")
+    this.connection.onmessage = this.notificationArrived
+
+    this.connection.onopen = function(event) {
+     // console.log(event)
+      console.log("Successfully connected to the echo websocket server..." + event)
+    }
+
     this.$store.dispatch("load");
     this.changeView("Gestore")
   },
+
+  beforeDestroy() {
+    this.connection.onclose = function () {}; // disable onclose handler first
+    this.connection.close();
+  },
+
   watch: {
     group() {
       this.drawer = false;
@@ -175,8 +188,15 @@ export default {
   },
   methods: {
     onClickDog (value) {
-      console.log(this.$store.state.dogs.find(dog => dog.chip_id === value))
       this.$store.state.selectedDog = this.$store.state.dogs.find(dog => dog.chip_id === value)
+    },
+    notificationArrived (event) {
+      const msg = JSON.parse(event.data).Notify
+      if(msg){
+        var max_of_array =  this.notifications.length === 0 ? 1 : Math.max.apply(Math, this.notifications.map(obj => obj.name))+1;
+        
+        this.notifications.push({"name":max_of_array, "msg":msg})
+      }
     },
     logOut() {
       this.$router.push("/Login").catch(() => {});
@@ -191,25 +211,15 @@ export default {
     changeView(str) {
       this.view = str
     },
-    removeNotification(notification) {
-      switch (notification.owner) {
-        case this.links[0]:
-          
-          break;
-        case this.links[1]:
-        console.log(notification.msg + notification.owner)
-
-          break;
-        case this.links[2]:
-        console.log(notification.msg + notification.owner)
-          
-          break;
-        case this.links[3]:
-        console.log(notification.msg + notification.owner)          
-          break;
-        default:
-          break;
-      }
+    removeNotification(not) {
+      this.notifications = this.notifications.filter(el => el.name !== not.name)
+      var range = 0
+      this.notifications = this.notifications.map(val => {
+        var tmp = val
+        tmp.name = range
+        range += 1
+        return tmp
+      })
 
     },
   },

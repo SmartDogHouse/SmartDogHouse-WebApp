@@ -5,7 +5,7 @@
       <h2>Notifiche</h2>
       <v-divider />
 
-      <div v-for="item in notifications" :key="item.msg">
+      <div v-for="item in notifications" :key="item.name">
         <v-list-item three-line>
           <v-list-item-content>
             <v-list-item-title>{{item.name}}</v-list-item-title>
@@ -13,7 +13,7 @@
               {{item.msg}}
             </v-list-item-subtitle>
           </v-list-item-content>
-          <v-list-item-action @click="onButtonClick(item.msg)" >
+          <v-list-item-action @click="onButtonClick(item.name)" >
             <v-btn depressed small class="px-8 py-4">
               <v-icon color="orange darken-4" center> mdi-window-close </v-icon>
             </v-btn>
@@ -37,8 +37,8 @@ export default {
     };
   },
   methods: {
-    onButtonClick (msg) {
-      this.$emit('selected', {"msg":msg ,"owner": this.owner})
+    onButtonClick (name) {
+      this.$emit('selected', {"name":name ,"owner": this.owner})
     }
   }
 };

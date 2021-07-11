@@ -13,13 +13,17 @@
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title>Nome</v-list-item-title>
-            <v-list-item-subtitle>{{$store.state.selectedDog.name}}</v-list-item-subtitle>
+            <v-list-item-subtitle
+              >{{$store.state.selectedDog.name}}</v-list-item-subtitle
+            >
           </v-list-item-content>
         </v-list-item>
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title>ID</v-list-item-title>
-            <v-list-item-subtitle>{{$store.state.selectedDog.chip_id}}</v-list-item-subtitle>
+            <v-list-item-subtitle
+              >{{$store.state.selectedDog.chip_id}}</v-list-item-subtitle
+            >
           </v-list-item-content>
         </v-list-item>
         <v-list-item>
@@ -181,7 +185,7 @@
         <v-subheader><strong>Soglie impostabili</strong></v-subheader>
 
         <v-subheader> <strong>Sezione salute</strong></v-subheader>
-          <!-- Slider lower temperature -->
+        <!-- Slider lower temperature -->
         <v-list-item>
           <v-slider
             v-model="sliderTemperature.valLower"
@@ -195,9 +199,9 @@
             :max="sliderTemperature.maxLower"
           ></v-slider>
         </v-list-item>
-                  <!-- Slider upper temperature -->
+        <!-- Slider upper temperature -->
 
-          <v-list-item>
+        <v-list-item>
           <v-slider
             v-model="sliderTemperature.valUpper"
             :label="sliderTemperature.labelUpper"
@@ -210,9 +214,9 @@
             :max="sliderTemperature.maxUpper"
           ></v-slider>
         </v-list-item>
-                  <!-- Slider upper heartbeat -->
+        <!-- Slider upper heartbeat -->
 
-                <v-list-item>
+        <v-list-item>
           <v-slider
             v-model="sliderHeartbeat.valLower"
             :label="sliderHeartbeat.labelLower"
@@ -225,9 +229,9 @@
             :max="sliderHeartbeat.maxLower"
           ></v-slider>
         </v-list-item>
-                  <!-- Slider upper heartbeat -->
+        <!-- Slider upper heartbeat -->
 
-                <v-list-item>
+        <v-list-item>
           <v-slider
             v-model="sliderHeartbeat.valUpper"
             :label="sliderHeartbeat.labelUpper"
@@ -407,7 +411,7 @@ export default {
     };
   },
   created: function () {
-    
+
   },
   watch:{
     "$store.state.selectedDog"(x) {
