@@ -64,48 +64,22 @@
       <v-list-item>
         <v-list-item-content>
           <StatsChart
-            :lineChartData="foodChartData"
+            :lineChartData="foodAndWaterChartData"
             :name="lineChartFoodName"
           />
-          <v-menu
-            ref="menuFood"
-            v-model="menuFood"
-            :close-on-content-click="false"
-            :return-value.sync="datesForFood"
-            transition="scale-transition"
-            offset-y
-            min-width="auto"
-          >
-            <template v-slot:activator="{ on, attrs }">
-              <v-combobox
-                v-model="datesForFood"
-                multiple
-                chips
-                small-chips
-                label="Multiple picker in menu"
-                prepend-icon="mdi-calendar"
-                readonly
-                v-bind="attrs"
-                v-on="on"
-              ></v-combobox>
-            </template>
-            <v-date-picker v-model="datesForFood" multiple no-title scrollable>
-              <v-spacer></v-spacer>
-              <v-btn text color="primary" @click="menuFood = false">
-                Cancel
-              </v-btn>
-              <v-btn
-                text
-                color="primary"
-                @click="$refs.menuFood.save(datesForFood)"
-              >
-                OK
-              </v-btn>
-            </v-date-picker>
-          </v-menu>
+          <v-datetime-picker label="Giorno iniziale" v-model="lowerDateForFoodAndWater">
+          </v-datetime-picker>
+          <v-datetime-picker label="Giorno finale" v-model="upperDateForFoodAndWater">
+          </v-datetime-picker>
         </v-list-item-content>
       </v-list-item>
-
+      <v-list-item>
+        <v-list-item-content>
+          <v-btn @click="requestFoodValues" depressed small class="px-8 py-4">
+            Richiedi
+          </v-btn>
+        </v-list-item-content>
+      </v-list-item>
       <v-divider />
 
       <v-list subheader three-line>
@@ -134,47 +108,23 @@
               :lineChartData="healthChartData"
               :name="lineChartHealthName"
             />
-            <v-menu
-              ref="menuHealth"
-              v-model="menuHealth"
-              :close-on-content-click="false"
-              :return-value.sync="datesForHealth"
-              transition="scale-transition"
-              offset-y
-              min-width="auto"
+            <v-datetime-picker
+              label="Giorno iniziale"
+              v-model="lowerDateForHealth"
             >
-              <template v-slot:activator="{ on, attrs }">
-                <v-combobox
-                  v-model="datesForHealth"
-                  multiple
-                  chips
-                  small-chips
-                  label="Multiple picker in menu"
-                  prepend-icon="mdi-calendar"
-                  readonly
-                  v-bind="attrs"
-                  v-on="on"
-                ></v-combobox>
-              </template>
-              <v-date-picker
-                v-model="datesForHealth"
-                multiple
-                no-title
-                scrollable
-              >
-                <v-spacer></v-spacer>
-                <v-btn text color="primary" @click="menuHealth = false">
-                  Cancel
-                </v-btn>
-                <v-btn
-                  text
-                  color="primary"
-                  @click="$refs.menuHealth.save(datesForHealth)"
-                >
-                  OK
-                </v-btn>
-              </v-date-picker>
-            </v-menu>
+            </v-datetime-picker>
+            <v-datetime-picker
+              label="Giorno finale"
+              v-model="upperDateForHealth"
+            >
+            </v-datetime-picker>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item>
+          <v-list-item-content>
+            <v-btn @click="requestHealthValues" depressed small class="px-8 py-4">
+              Richiedi
+            </v-btn>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -334,11 +284,14 @@ export default {
     //  datesForFood: ['2020-01-01', '2021-01-01'],D
       healthStates: ["In salute", "In degenza", "In terapia","In osservazione"],
       datesForFood: [],
+      lowerDateForFoodAndWater: "",
+      upperDateForFoodAndWater: "",
+      lowerDateForHealth: "",
+      upperDateForHealth: "",
       menuFood: false,
-      datesForHealth: [],
       menuHealth: false,
       healthChartData:[],
-      foodChartData: [
+      foodAndWaterChartData: [
       {
         name: "Cibo",
         data: [
@@ -411,7 +364,7 @@ export default {
     };
   },
   created: function () {
-
+    this.cleanAll()
   },
   watch:{
     "$store.state.selectedDog"(x) {
@@ -421,16 +374,6 @@ export default {
           this.sliderTemperature.valUpper = x.temp_upper_bound
           this.healthRdios = this.getDogHealthState(x.status)
           console.log(x.heartbeat_lower_bound)
-    },
-    "datesForFood"(newVal){
-        if(this.datesForFood.length > 2){
-          this.datesForFood = newVal.slice(0,2)
-        }
-    },
-    "datesForHealth"(newVal){
-        if(this.datesForHealth.length > 2){
-          this.datesForHealth = newVal.slice(0,2)
-        }
     },
   },
   methods: {
@@ -478,6 +421,44 @@ export default {
     sendStats() {
 
     },
+    async requestFoodValues() {
+      if(this.lowerDateForFoodAndWater && this.upperDateForFoodAndWater){
+          console.log(new Date(this.lowerDateForFoodAndWater).toISOString().slice(0, 19))
+          console.log(new Date(this.upperDateForFoodAndWater).toISOString().slice(0, 19))
+          //this.$store.dispatch("loadFoodAndWater",{'lowerT': new Date(this.lowerDateForFoodAndWater).toISOString().slice(0, 19), 'upperT': new Date(this.upperDateForFoodAndWater).toISOString().slice(0, 19)});
+        
+       const resFood = await this.axios
+        .get("/view/cons/food",{ params: {'lowerT': new Date(this.lowerDateForFoodAndWater).toISOString().slice(0, 19), 'upperT': new Date(this.upperDateForFoodAndWater).toISOString().slice(0, 19)} })
+
+        if(resFood.data.length > 0){
+          console.log(resFood.data)
+        }
+
+       const resWater = await this.axios
+        .get("/view/cons/water",{ params: {'lowerT': new Date(this.lowerDateForFoodAndWater).toISOString().slice(0, 19), 'upperT': new Date(this.upperDateForFoodAndWater).toISOString().slice(0, 19)} })
+        
+        if(resWater.data.length > 0){
+          console.log(resWater.data)
+
+        }
+      }
+    },
+    requestHealthValues() {
+        //this.$store.dispatch("loadHeartBeatAndTemperature");
+    },
+    cleanAll() {
+      this.lowerDateForFoodAndWater = new Date() 
+      this.upperDateForFoodAndWater = new Date(this.lowerDateForFoodAndWater)
+      this.upperDateForFoodAndWater.setDate(this.upperDateForFoodAndWater.getDate() + 1000)
+      this.lowerDateForFoodAndWater.setDate(this.lowerDateForFoodAndWater.getDate() - 1000)
+
+      this.lowerDateForHealth = new Date()
+      this.upperDateForHealth = new Date(this.lowerDateForHealth)
+      this.upperDateForHealth.setDate(this.upperDateForHealth.getDate() + 1000)
+      this.lowerDateForHealth.setDate(this.lowerDateForHealth.getDate() - 1000)
+    },
+
+    
     genRandomIndex(length) {
       return Math.ceil(Math.random() * (length - 1));
     },
