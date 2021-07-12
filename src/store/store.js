@@ -28,37 +28,14 @@ export default new Vuex.Store({
   actions: {
      load({ commit }) {
       Vue.axios
-        .get("/req/dogs")
+        .get("/view/dogs")
         .then((response) => {
-          commit("SAVE_DOGS", response.data.body);
+          console.log(response.data)
+          commit("SAVE_DOGS", response.data);
         })
         .catch(() => {
           commit("SAVE_DOGS", 0);
         });
     },
-    loadFoodAndWater({ commit }, arg) {
-      Vue.axios
-        .get("/view/logs/dog",{ params: arg })
-        .then((response) => {
-          console.log(response)
-          commit("LOAD_FOOD_AND_WATER", response.data.body);
-        })
-        .catch(() => {
-          commit("LOAD_FOOD_AND_WATER", 0);
-        });
-    },
-
-    loadHeartBeatAndTemperature({ commit }) {
-      Vue.axios
-        .get("/req/dogs")
-        .then((response) => {
-          commit("LOAD_HEART_BEAT_AND_TEMPERATURE", response.data.body);
-        })
-        .catch(() => {
-          commit("LOAD_HEART_BEAT_AND_TEMPERATURE", 0);
-        });
-    }
- 
-
   }
 });

@@ -421,45 +421,51 @@ export default {
     sendStats() {
 
     },
+    /*types: wcons, fcons, hb, temp*/
     async requestFoodValues() {
-      if(this.lowerDateForFoodAndWater && this.upperDateForFoodAndWater){
-          console.log(new Date(this.lowerDateForFoodAndWater).toISOString().slice(0, 19))
-          console.log(new Date(this.upperDateForFoodAndWater).toISOString().slice(0, 19))
-          //this.$store.dispatch("loadFoodAndWater",{'lowerT': new Date(this.lowerDateForFoodAndWater).toISOString().slice(0, 19), 'upperT': new Date(this.upperDateForFoodAndWater).toISOString().slice(0, 19)});
-        
-       const resFood = await this.axios
-        .get("/view/logs/dog",{ params: {'type': 'fcons', 'dog': 'c02', 'lowerT': new Date(this.lowerDateForFoodAndWater).toISOString().slice(0, 19), 'upperT': new Date(this.upperDateForFoodAndWater).toISOString().slice(0, 19)} })
+      this.foodAndWaterChartData = []
+      if(this.lowerDateForFoodAndWater && this.upperDateForFoodAndWater && this.$store.state.selectedDog.chip_id){
+        const types = ['fcons','wcons']
+        const names = ['Cibo','Acqua']
+        for (const x of Array(2).keys()) {
+          const resFood = await this.axios
+            .get("/view/logs/dog",{ params: {'type': types[x], 'dog': this.$store.state.selectedDog.chip_id, 'lowerT': new Date(this.lowerDateForFoodAndWater).toISOString().slice(0, 19), 'upperT': new Date(this.upperDateForFoodAndWater).toISOString().slice(0, 19)} })
 
-        if(resFood.data.length > 0){
-          var foodStats = {
-            name: "Cibo",
-            data: []
-          }
-            
-          resFood.data.map(el => [el.time_stamp,el.val]).forEach(element => {
-            foodStats.data.push(element)
-          });
-          this.foodAndWaterChartData.push(foodStats)
-        }
-                                      /*types: wcons, fcons, hb, temp*/
-       const resWater = await this.axios
-        .get("/view/logs/dog",{ params: {'type': 'wcons','dog': 'c02', 'lowerT': new Date(this.lowerDateForFoodAndWater).toISOString().slice(0, 19), 'upperT': new Date(this.upperDateForFoodAndWater).toISOString().slice(0, 19)} })
-        
-        if(resWater.data.length > 0){
-          var waterStats = {
-            name: "Acqua",
-            data: []
-          }
-            
-          resWater.data.map(el => [el.time_stamp,el.val]).forEach(element => {
-            waterStats.data.push(element)
-          });
-          this.foodAndWaterChartData.push(waterStats)
+            if(resFood.data.length > 0){
+              var foodStats = {
+                name: names[x],
+                data: []
+              }
+                
+              resFood.data.map(el => [el.time_stamp,el.val]).forEach(element => {
+                foodStats.data.push(element)
+              });
+              this.foodAndWaterChartData.push(foodStats)
+            }   
         }
       }
     },
-    requestHealthValues() {
-        //this.$store.dispatch("loadHeartBeatAndTemperature");
+    async requestHealthValues() {
+      this.healthChartData = []
+      if(this.lowerDateForHealth && this.upperDateForHealth && this.$store.state.selectedDog.chip_id){
+        const types = ['hb','temp']
+        const names = ['Battiti','Temperatura']
+        for (const x of Array(2).keys()) {
+          const resHealth = await this.axios
+            .get("/view/logs/dog",{ params: {'type': types[x], 'dog': this.$store.state.selectedDog.chip_id, 'lowerT': new Date(this.lowerDateForFoodAndWater).toISOString().slice(0, 19), 'upperT': new Date(this.upperDateForFoodAndWater).toISOString().slice(0, 19)} })
+
+            if(resHealth.data.length > 0){
+              var HealthStats = {
+                name: names[x],
+                data: []
+              }
+              resHealth.data.map(el => [el.time_stamp,el.val]).forEach(element => {
+                HealthStats.data.push(element)
+              });
+              this.healthChartData.push(HealthStats)
+            }   
+        }
+      }
     },
     cleanAll() {
       this.lowerDateForFoodAndWater = new Date() 
