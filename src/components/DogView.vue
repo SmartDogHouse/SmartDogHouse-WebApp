@@ -428,7 +428,7 @@ export default {
           //this.$store.dispatch("loadFoodAndWater",{'lowerT': new Date(this.lowerDateForFoodAndWater).toISOString().slice(0, 19), 'upperT': new Date(this.upperDateForFoodAndWater).toISOString().slice(0, 19)});
         
        const resFood = await this.axios
-        .get("/view/cons/food",{ params: {'lowerT': new Date(this.lowerDateForFoodAndWater).toISOString().slice(0, 19), 'upperT': new Date(this.upperDateForFoodAndWater).toISOString().slice(0, 19)} })
+        .get("/view/logs/dog",{ params: {'type': 'fcons', 'dog': 'c02', 'lowerT': new Date(this.lowerDateForFoodAndWater).toISOString().slice(0, 19), 'upperT': new Date(this.upperDateForFoodAndWater).toISOString().slice(0, 19)} })
 
         if(resFood.data.length > 0){
           var foodStats = {
@@ -441,9 +441,9 @@ export default {
           });
           this.foodAndWaterChartData.push(foodStats)
         }
-
+                                      /*types: wcons, fcons, hb, temp*/
        const resWater = await this.axios
-        .get("/view/cons/water",{ params: {'lowerT': new Date(this.lowerDateForFoodAndWater).toISOString().slice(0, 19), 'upperT': new Date(this.upperDateForFoodAndWater).toISOString().slice(0, 19)} })
+        .get("/view/logs/dog",{ params: {'type': 'wcons','dog': 'c02', 'lowerT': new Date(this.lowerDateForFoodAndWater).toISOString().slice(0, 19), 'upperT': new Date(this.upperDateForFoodAndWater).toISOString().slice(0, 19)} })
         
         if(resWater.data.length > 0){
           var waterStats = {

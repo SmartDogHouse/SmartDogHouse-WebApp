@@ -38,7 +38,7 @@ export default new Vuex.Store({
     },
     loadFoodAndWater({ commit }, arg) {
       Vue.axios
-        .get("/view/cons/food",{ params: arg })
+        .get("/view/logs/dog",{ params: arg })
         .then((response) => {
           console.log(response)
           commit("LOAD_FOOD_AND_WATER", response.data.body);
