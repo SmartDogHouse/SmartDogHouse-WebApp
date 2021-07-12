@@ -61,9 +61,14 @@ export default {
         tryLogIn1() {
    //   this.$router.push("/Home").catch(() => {});
 
-   /*  this.axios.get("/req/dogs",{ crossdomain: true }).then((response) => {
-        console.log(response.data);
-      });*/
+     this.axios.get("/view/logs/env",{ crossdomain: true }).then((response) => {
+        response.data.forEach(el => {
+          console.log(`secondo for ${el.SK} ${el.val}`)
+        });
+
+        
+        //console.log(JSON.parse(`${response.data}`));
+      });
 
        /*     this.axios.get("/req/auth",{ crossdomain: true }).then((response) => {
         console.log(response.data);

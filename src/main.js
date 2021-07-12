@@ -8,6 +8,7 @@ import store from "./store/store";
 import VSwitch from 'v-switch-case';
 import DatetimePicker from 'vuetify-datetime-picker'
 
+
 const baseURL = "http://127.0.0.1:3000/";
 
 Vue.use(VueAxios, axios);
