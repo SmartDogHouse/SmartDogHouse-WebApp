@@ -50,14 +50,26 @@
         <v-subheader>Consumi</v-subheader>
         <v-list-item>
           <v-list-item-content>
-            <v-list-item-title>Cibo</v-list-item-title>
-            <v-list-item-subtitle>XXX</v-list-item-subtitle>
+            <v-list-item-title>Cibo oggi</v-list-item-title>
+            <v-list-item-subtitle>{{$store.state.selectedDogStats.foodTotal}}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
         <v-list-item>
           <v-list-item-content>
-            <v-list-item-title>Acqua</v-list-item-title>
-            <v-list-item-subtitle>XXX</v-list-item-subtitle>
+            <v-list-item-title>Acqua oggi</v-list-item-title>
+            <v-list-item-subtitle>{{$store.state.selectedDogStats.waterTotal}}</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item>
+          <v-list-item-content>
+            <v-list-item-title>Cibo nel tempo</v-list-item-title>
+            <v-list-item-subtitle>{{timeRangeConsumedFood}}</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item>
+          <v-list-item-content>
+            <v-list-item-title>Acqua nel tempo</v-list-item-title>
+            <v-list-item-subtitle>{{timeRangeConsumedWater}}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -87,18 +99,13 @@
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title>Battiti</v-list-item-title>
-            <v-list-item-subtitle>XXX</v-list-item-subtitle>
+            <v-list-item-subtitle>{{$store.state.selectedDogStats.lastHB}}</v-list-item-subtitle>
           </v-list-item-content>
-          <!--          <v-list-item-action>
-            <v-btn @click="" depressed small class="px-8 py-4">
-              <v-icon color="orange darken-4" center> mdi-open-in-new </v-icon>
-            </v-btn>
-          </v-list-item-action> -->
         </v-list-item>
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title>Temperatura</v-list-item-title>
-            <v-list-item-subtitle>XXX</v-list-item-subtitle>
+            <v-list-item-subtitle>{{$store.state.selectedDogStats.lastTemp}}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
 
@@ -133,6 +140,10 @@
 
       <v-list flat subheader three-line>
         <v-subheader><strong>Soglie impostabili</strong></v-subheader>
+
+        <template
+          v-if="checkPermissions('vet') || checkPermissions('manager')"
+        >
 
         <v-subheader> <strong>Sezione salute</strong></v-subheader>
         <!-- Slider lower temperature -->
@@ -216,7 +227,7 @@
             :max="sliderPatient.max"
           ></v-slider>
         </v-list-item>
-
+        </template>
         <template
           v-if="checkPermissions('foodAttendant') || checkPermissions('manager')"
         >
@@ -284,6 +295,8 @@ export default {
     //  datesForFood: ['2020-01-01', '2021-01-01'],D
       healthStates: ["In salute", "In degenza", "In terapia","In osservazione"],
       datesForFood: [],
+      timeRangeConsumedWater: 0,
+      timeRangeConsumedFood: 0,
       lowerDateForFoodAndWater: "",
       upperDateForFoodAndWater: "",
       lowerDateForHealth: "",
@@ -291,35 +304,7 @@ export default {
       menuFood: false,
       menuHealth: false,
       healthChartData:[],
-      foodAndWaterChartData: [
-     /** {
-        name: "Cibo",
-        data: [
-          ["2016", 3],
-          ["2017", 6],
-          ["2018", 7],
-          ["2019", 7],
-        ],
-      },
-      {
-        name: "Acqua1",
-        data: [
-          ["2016", 5],
-          ["2017", 2],
-          ["2018", 11],
-          ["2019", 9],
-        ],
-      },
-      {
-        name: "Zio peppe",
-        data: [
-          ["2016", 1],
-          ["2017", 21],
-          ["2018", 31],
-          ["2019", 41],
-        ],
-      },**/
-    ],
+      foodAndWaterChartData: [],
       lineChartFoodName : "Consumi cibo e acqua",
       lineChartHealthName : "Rilevazioni vitali",
       sliderTemperature: {
@@ -436,7 +421,11 @@ export default {
                 name: names[x],
                 data: []
               }
-                
+              if(types[x] === 'fcons'){
+                this.timeRangeConsumedFood = resFood.data.map(el => el.val).reduce((acc,nextVal) => acc+nextVal)
+              }else{
+                this.timeRangeConsumedWater = resFood.data.map(el => el.val).reduce((acc,nextVal) => acc+nextVal)
+              }
               resFood.data.map(el => [el.time_stamp,el.val]).forEach(element => {
                 foodStats.data.push(element)
               });

@@ -6,27 +6,20 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   namespaced: true,
   state: {
-    fixed: 0,
-    withdrawal: 0,
-    donation: 0,
     dogs: [],
     selectedDog: {},
-    all: [],
-    pieData: []
+    selectedDogStats: {"foodTotal": 0, "waterTotal": 0,"lastHB":0,"lastTemp":0}
   },
   mutations: {
     SAVE_DOGS(state, schemas) {
       state.dogs = schemas;
     },
-    LOAD_HEART_BEAT_AND_TEMPERATURE(){
-      
-    },
-    LOAD_FOOD_AND_WATER(){
-        
+    SAVE_DOG_STATS(state, schemas){
+      state.selectedDogStats = schemas;
     },
   },
   actions: {
-     load({ commit }) {
+     loadDogs({ commit }) {
       Vue.axios
         .get("/view/dogs")
         .then((response) => {
@@ -37,5 +30,9 @@ export default new Vuex.Store({
           commit("SAVE_DOGS", 0);
         });
     },
+    saveDogsStats({ commit }, dogStats) {
+      commit("SAVE_DOG_STATS", dogStats);
+    },
+
   }
 });

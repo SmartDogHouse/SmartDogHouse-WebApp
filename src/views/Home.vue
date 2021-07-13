@@ -168,7 +168,7 @@ export default {
       console.log("Successfully connected to the echo websocket server..." + event)
     }
 
-    this.$store.dispatch("load");
+    this.$store.dispatch("loadDogs");
     this.changeView("Gestore")
   },
 
@@ -187,8 +187,18 @@ export default {
   }
   },
   methods: {
-    onClickDog (value) {
+    async onClickDog (value) {
       this.$store.state.selectedDog = this.$store.state.dogs.find(dog => dog.chip_id === value)
+
+      var lowerT = new Date().toISOString().slice(0, 14)
+      var upperT = new Date().toISOString().slice(0, 14)
+      lowerT = `${lowerT}00:00`
+      upperT = `${upperT}23:59`
+      const todayFoodConsumption = await this.axios
+            .get("/view/logs/dog/total",{ params: {'dog': this.$store.state.selectedDog.chip_id, 'lowerT': lowerT, 'upperT': upperT} })
+
+      this.$store.dispatch("saveDogsStats",{"foodTotal": todayFoodConsumption.data.foodTotal, "waterTotal": todayFoodConsumption.data.waterTotal,"lastHB":0,"lastTemp":0});
+      console.log(this.$store.state.selectedDogStats.foodTotal)
     },
     notificationArrived (event) {
       const msg = JSON.parse(event.data).Notify
