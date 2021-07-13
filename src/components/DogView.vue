@@ -414,7 +414,14 @@ export default {
         const names = ['Cibo','Acqua']
         for (const x of Array(2).keys()) {
           const resFood = await this.axios
-            .get("/view/logs/dog",{ params: {'type': types[x], 'dog': this.$store.state.selectedDog.chip_id, 'lowerT': new Date(this.lowerDateForFoodAndWater).toISOString().slice(0, 19), 'upperT': new Date(this.upperDateForFoodAndWater).toISOString().slice(0, 19)} })
+            .get("/view/logs/dog",{ 
+              params: {
+                'type': types[x],
+                'dog': this.$store.state.selectedDog.chip_id,
+                'lowerT': new Date(this.lowerDateForFoodAndWater).toISOString().slice(0, 19),
+                'upperT': new Date(this.upperDateForFoodAndWater).toISOString().slice(0, 19)
+              }
+            })
 
             if(resFood.data.length > 0){
               var foodStats = {
