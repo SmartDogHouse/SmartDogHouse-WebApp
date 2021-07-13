@@ -146,6 +146,7 @@
         >
 
         <v-subheader> <strong>Sezione salute</strong></v-subheader>
+
         <!-- Slider lower temperature -->
         <v-list-item>
           <v-slider
@@ -160,8 +161,8 @@
             :max="sliderTemperature.maxLower"
           ></v-slider>
         </v-list-item>
-        <!-- Slider upper temperature -->
 
+        <!-- Slider upper temperature -->
         <v-list-item>
           <v-slider
             v-model="sliderTemperature.valUpper"
@@ -170,13 +171,13 @@
             thumb-label="always"
             step="1"
             ticks="always"
-            tick-size="4"
+            tick-size="2"
             :min="sliderTemperature.valLower"
             :max="sliderTemperature.maxUpper"
           ></v-slider>
         </v-list-item>
-        <!-- Slider upper heartbeat -->
 
+        <!-- Slider lower heartbeat -->
         <v-list-item>
           <v-slider
             v-model="sliderHeartbeat.valLower"
@@ -190,8 +191,8 @@
             :max="sliderHeartbeat.maxLower"
           ></v-slider>
         </v-list-item>
-        <!-- Slider upper heartbeat -->
 
+        <!-- Slider upper heartbeat -->
         <v-list-item>
           <v-slider
             v-model="sliderHeartbeat.valUpper"
@@ -205,6 +206,70 @@
             :max="sliderHeartbeat.maxUpper"
           ></v-slider>
         </v-list-item>
+
+        <!-- Slider lower food -->
+        <v-list-item>
+          <v-slider
+            v-model="sliderFoodThreshold.valLower"
+            :label="sliderFoodThreshold.labelLower"
+            :thumb-color="sliderFoodThreshold.color"
+            thumb-label="always"
+            step="10"
+            ticks="always"
+            tick-size="1"
+            :min="sliderFoodThreshold.minLower"
+            :max="sliderFoodThreshold.maxLower"
+          ></v-slider>
+        </v-list-item>
+
+        <!-- Slider upper food -->
+        <v-list-item>
+          <v-slider
+            v-model="sliderFoodThreshold.valUpper"
+            :label="sliderFoodThreshold.labelUpper"
+            :thumb-color="sliderFoodThreshold.color"
+            thumb-label="always"
+            step="10"
+            ticks="always"
+            tick-size="1"
+            :min="sliderFoodThreshold.valLower"
+            :max="sliderFoodThreshold.maxUpper"
+          ></v-slider>
+        </v-list-item>
+
+
+        <!-- Slider lower water -->
+        <v-list-item>
+          <v-slider
+            v-model="sliderWaterThreshold.valLower"
+            :label="sliderWaterThreshold.labelLower"
+            :thumb-color="sliderWaterThreshold.color"
+            thumb-label="always"
+            step="10"
+            ticks="always"
+            tick-size="1"
+            :min="sliderWaterThreshold.minLower"
+            :max="sliderWaterThreshold.maxLower"
+          ></v-slider>
+        </v-list-item>
+
+        <!-- Slider upper water -->
+        <v-list-item>
+          <v-slider
+            v-model="sliderWaterThreshold.valUpper"
+            :label="sliderWaterThreshold.labelUpper"
+            :thumb-color="sliderWaterThreshold.color"
+            thumb-label="always"
+            step="10"
+            ticks="always"
+            tick-size="1"
+            :min="sliderWaterThreshold.valLower"
+            :max="sliderWaterThreshold.maxUpper"
+          ></v-slider>
+        </v-list-item>
+
+
+
         <v-list-item>
           <v-radio-group v-model="healthRdios">
             <v-radio v-for="item in healthStates" :key="item" :value="item">
@@ -327,7 +392,29 @@ export default {
         valUpper: 60,
         maxUpper: 140,
         maxLower: 140,
+        color: "brown",
+      },
+      sliderFoodThreshold: {
+        labelLower: "Inferiore cibo",
+        labelUpper: "Superiore cibo",
+        minLower: 50,
+        minUpper: 50,
+        valLower: 50,
+        valUpper: 50,
+        maxUpper: 5000,
+        maxLower: 5000,
         color: "blue",
+      },
+      sliderWaterThreshold: {
+        labelLower: "Inferiore acqua",
+        labelUpper: "Superiore acqua",
+        minLower: 500,
+        minUpper: 500,
+        valLower: 500,
+        valUpper: 500,
+        maxUpper: 4000,
+        maxLower: 4000,
+        color: "green",
       },
       sliderPatient: {
         label: "Qta cibo degenza",
