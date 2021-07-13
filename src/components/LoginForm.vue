@@ -58,17 +58,39 @@ export default {
         console.log(response.data);
       });*/
     },
-        tryLogIn1() {
+    async tryLogIn1() {
    //   this.$router.push("/Home").catch(() => {});
 
-     this.axios.get("/view/logs/env",{ crossdomain: true }).then((response) => {
-        response.data.forEach(el => {
-          console.log(`secondo for ${el.SK} ${el.val}`)
-        });
+    const testNum = 2;
+    var res;
+    switch (testNum) {
+      case 1: //test env logs
+        res= this.axios.get("/view/logs/env",{ crossdomain: true }).then((response) => {
+          response.data.forEach(el => {
+            console.log(`secondo for ${el.SK} ${el.val}`)
+          });
+        })
+        break;
+      case 2: //test dog logs
+        res = await this.axios.get("/view/logs/dog",{ 
+          params: {
+            'type': "temp",
+            'dog': "c02",
+            'lowerT': "1",
+            'upperT': "3"
+          }
+        })
+        break;
+    
+      default:
+        break;
+    }
+
+    console.log(res.data);
 
         
         //console.log(JSON.parse(`${response.data}`));
-      });
+      
 
        /*     this.axios.get("/req/auth",{ crossdomain: true }).then((response) => {
         console.log(response.data);
