@@ -160,13 +160,19 @@ export default {
   }),
   props: {},
   created() {
-    this.connection = new WebSocket("wss://avehtb1b8a.execute-api.eu-west-2.amazonaws.com/Prod")
+    this.connection = new WebSocket("wss://c07eionjgd.execute-api.eu-west-2.amazonaws.com/Prod")
     this.connection.onmessage = this.notificationArrived
 
     this.connection.onopen = function(event) {
-     // console.log(event)
       console.log("Successfully connected to the echo websocket server..." + event)
     }
+    //Keep-alive socket every 120 sec
+    var conns = this.connection
+    setInterval(function() {       
+      if(conns){
+          conns.send({"data":"Keep-Alive-Msg"});
+      }
+      }, 120000);
 
     this.$store.dispatch("loadDogs");
     this.changeView("Gestore")
@@ -203,9 +209,12 @@ export default {
     notificationArrived (event) {
       const msg = JSON.parse(event.data).Notify
       if(msg){
+        console.log("Notification arrived")
         var max_of_array =  this.notifications.length === 0 ? 1 : Math.max.apply(Math, this.notifications.map(obj => obj.name))+1;
         
         this.notifications.push({"name":max_of_array, "msg":msg})
+      }else{
+        console.log("Keep alive arrived")
       }
     },
     logOut() {
