@@ -90,6 +90,13 @@ export default {
           }
         })
         break;
+        case 4:   //test last temp and hb retrieval     
+        res = await this.axios.get("/view/logs/dog/last",{ 
+          params: {
+            'dog': 'c01'
+          }
+        })
+        break;
       default:
         break;
     }
