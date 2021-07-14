@@ -51,25 +51,33 @@
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title>Cibo oggi</v-list-item-title>
-            <v-list-item-subtitle>{{$store.state.selectedDogStats.foodTotal}}</v-list-item-subtitle>
+            <v-list-item-subtitle
+              >{{$store.state.selectedDogStats.foodTotal}}</v-list-item-subtitle
+            >
           </v-list-item-content>
         </v-list-item>
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title>Acqua oggi</v-list-item-title>
-            <v-list-item-subtitle>{{$store.state.selectedDogStats.waterTotal}}</v-list-item-subtitle>
+            <v-list-item-subtitle
+              >{{$store.state.selectedDogStats.waterTotal}}</v-list-item-subtitle
+            >
           </v-list-item-content>
         </v-list-item>
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title>Cibo nel tempo</v-list-item-title>
-            <v-list-item-subtitle>{{timeRangeConsumedFood}}</v-list-item-subtitle>
+            <v-list-item-subtitle
+              >{{timeRangeConsumedFood}}</v-list-item-subtitle
+            >
           </v-list-item-content>
         </v-list-item>
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title>Acqua nel tempo</v-list-item-title>
-            <v-list-item-subtitle>{{timeRangeConsumedWater}}</v-list-item-subtitle>
+            <v-list-item-subtitle
+              >{{timeRangeConsumedWater}}</v-list-item-subtitle
+            >
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -79,9 +87,15 @@
             :lineChartData="foodAndWaterChartData"
             :name="lineChartFoodName"
           />
-          <v-datetime-picker label="Giorno iniziale" v-model="lowerDateForFoodAndWater">
+          <v-datetime-picker
+            label="Giorno iniziale"
+            v-model="lowerDateForFoodAndWater"
+          >
           </v-datetime-picker>
-          <v-datetime-picker label="Giorno finale" v-model="upperDateForFoodAndWater">
+          <v-datetime-picker
+            label="Giorno finale"
+            v-model="upperDateForFoodAndWater"
+          >
           </v-datetime-picker>
         </v-list-item-content>
       </v-list-item>
@@ -99,13 +113,17 @@
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title>Battiti</v-list-item-title>
-            <v-list-item-subtitle>{{$store.state.selectedDogStats.lastHB}}</v-list-item-subtitle>
+            <v-list-item-subtitle
+              >{{$store.state.selectedDogStats.lastHB}}</v-list-item-subtitle
+            >
           </v-list-item-content>
         </v-list-item>
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title>Temperatura</v-list-item-title>
-            <v-list-item-subtitle>{{$store.state.selectedDogStats.lastTemp}}</v-list-item-subtitle>
+            <v-list-item-subtitle
+              >{{$store.state.selectedDogStats.lastTemp}}</v-list-item-subtitle
+            >
           </v-list-item-content>
         </v-list-item>
 
@@ -129,7 +147,12 @@
         </v-list-item>
         <v-list-item>
           <v-list-item-content>
-            <v-btn @click="requestHealthValues" depressed small class="px-8 py-4">
+            <v-btn
+              @click="requestHealthValues"
+              depressed
+              small
+              class="px-8 py-4"
+            >
               Richiedi
             </v-btn>
           </v-list-item-content>
@@ -141,177 +164,250 @@
       <v-list flat subheader three-line>
         <v-subheader><strong>Soglie impostabili</strong></v-subheader>
 
-        <template
-          v-if="checkPermissions('vet') || checkPermissions('manager')"
-        >
+        <template v-if="checkPermissions('vet') || checkPermissions('manager')">
+          <v-subheader> <strong>Sezione salute</strong></v-subheader>
 
-        <v-subheader> <strong>Sezione salute</strong></v-subheader>
+          <!-- Slider lower temperature -->
+          <v-list-item>
+            <v-slider
+              v-model="sliderTemperature.valLower"
+              :label="sliderTemperature.labelLower"
+              :thumb-color="sliderTemperature.color"
+              thumb-label="always"
+              step="1"
+              ticks="always"
+              tick-size="4"
+              :min="sliderTemperature.minLower"
+              :max="sliderTemperature.maxLower"
+            ></v-slider>
+          </v-list-item>
 
-        <!-- Slider lower temperature -->
-        <v-list-item>
+          <!-- Slider upper temperature -->
+          <v-list-item>
+            <v-slider
+              v-model="sliderTemperature.valUpper"
+              :label="sliderTemperature.labelUpper"
+              :thumb-color="sliderTemperature.color"
+              thumb-label="always"
+              step="1"
+              ticks="always"
+              tick-size="2"
+              :min="sliderTemperature.valLower"
+              :max="sliderTemperature.maxUpper"
+            ></v-slider>
+          </v-list-item>
+
+          <!-- Slider lower heartbeat -->
+          <v-list-item>
+            <v-slider
+              v-model="sliderHeartbeat.valLower"
+              :label="sliderHeartbeat.labelLower"
+              :thumb-color="sliderHeartbeat.color"
+              thumb-label="always"
+              step="1"
+              ticks="always"
+              tick-size="1"
+              :min="sliderHeartbeat.minLower"
+              :max="sliderHeartbeat.maxLower"
+            ></v-slider>
+          </v-list-item>
+
+          <!-- Slider upper heartbeat -->
+          <v-list-item>
+            <v-slider
+              v-model="sliderHeartbeat.valUpper"
+              :label="sliderHeartbeat.labelUpper"
+              :thumb-color="sliderHeartbeat.color"
+              thumb-label="always"
+              step="1"
+              ticks="always"
+              tick-size="1"
+              :min="sliderHeartbeat.valLower"
+              :max="sliderHeartbeat.maxUpper"
+            ></v-slider>
+          </v-list-item>
+
+          <!-- Slider lower food -->
+          <v-list-item>
+            <v-slider
+              v-model="sliderFoodThreshold.valLower"
+              :label="sliderFoodThreshold.labelLower"
+              :thumb-color="sliderFoodThreshold.color"
+              thumb-label="always"
+              step="10"
+              ticks="always"
+              tick-size="1"
+              :min="sliderFoodThreshold.minLower"
+              :max="sliderFoodThreshold.maxLower"
+            ></v-slider>
+          </v-list-item>
+
+          <!-- Slider upper food -->
+          <v-list-item>
+            <v-slider
+              v-model="sliderFoodThreshold.valUpper"
+              :label="sliderFoodThreshold.labelUpper"
+              :thumb-color="sliderFoodThreshold.color"
+              thumb-label="always"
+              step="10"
+              ticks="always"
+              tick-size="1"
+              :min="sliderFoodThreshold.valLower"
+              :max="sliderFoodThreshold.maxUpper"
+            ></v-slider>
+          </v-list-item>
+
+          <!-- Slider lower water -->
+          <v-list-item>
+            <v-slider
+              v-model="sliderWaterThreshold.valLower"
+              :label="sliderWaterThreshold.labelLower"
+              :thumb-color="sliderWaterThreshold.color"
+              thumb-label="always"
+              step="10"
+              ticks="always"
+              tick-size="1"
+              :min="sliderWaterThreshold.minLower"
+              :max="sliderWaterThreshold.maxLower"
+            ></v-slider>
+          </v-list-item>
+
+          <!-- Slider upper water -->
+          <v-list-item>
+            <v-slider
+              v-model="sliderWaterThreshold.valUpper"
+              :label="sliderWaterThreshold.labelUpper"
+              :thumb-color="sliderWaterThreshold.color"
+              thumb-label="always"
+              step="10"
+              ticks="always"
+              tick-size="1"
+              :min="sliderWaterThreshold.valLower"
+              :max="sliderWaterThreshold.maxUpper"
+            ></v-slider>
+          </v-list-item>
+
+          <v-list-item>
+            <v-radio-group v-model="healthRdios">
+              <v-radio v-for="item in healthStates" :key="item" :value="item">
+                <template v-slot:label>
+                  <strong class="primary--text">{{item}}</strong>
+                </template>
+              </v-radio>
+            </v-radio-group>
+          </v-list-item>
+
+          <v-list-item>
+            <v-slider
+              v-model="sliderPatient.val"
+              :label="sliderPatient.label"
+              :thumb-color="sliderPatient.color"
+              thumb-label="always"
+              step="50"
+              ticks="always"
+              tick-size="4"
+              :min="sliderPatient.min"
+              :max="sliderPatient.max"
+            ></v-slider>
+          </v-list-item>
+
+          <v-list-item>
+            <v-spacer />
+
+            <v-time-picker v-model="selectedTimeVet" ></v-time-picker>
+            <v-spacer />
+          </v-list-item>
+
+          <v-list-item>
+            <v-spacer />
+
+            <v-btn @click="addRationsVet" depressed small class="px-8 py-4">
+              Aggiungi
+            </v-btn>
+            <v-spacer />
+          </v-list-item>
+
+          <v-list-item>
+            <v-spacer />
+
+            <v-btn @click="cleanFoodVet" depressed small class="px-8 py-4">
+              Pulisci
+            </v-btn>
+            <v-spacer />
+          </v-list-item>
+
           <v-slider
-            v-model="sliderTemperature.valLower"
-            :label="sliderTemperature.labelLower"
-            :thumb-color="sliderTemperature.color"
-            thumb-label="always"
-            step="1"
-            ticks="always"
-            tick-size="4"
-            :min="sliderTemperature.minLower"
-            :max="sliderTemperature.maxLower"
-          ></v-slider>
-        </v-list-item>
-
-        <!-- Slider upper temperature -->
-        <v-list-item>
-          <v-slider
-            v-model="sliderTemperature.valUpper"
-            :label="sliderTemperature.labelUpper"
-            :thumb-color="sliderTemperature.color"
-            thumb-label="always"
-            step="1"
-            ticks="always"
-            tick-size="2"
-            :min="sliderTemperature.valLower"
-            :max="sliderTemperature.maxUpper"
-          ></v-slider>
-        </v-list-item>
-
-        <!-- Slider lower heartbeat -->
-        <v-list-item>
-          <v-slider
-            v-model="sliderHeartbeat.valLower"
-            :label="sliderHeartbeat.labelLower"
-            :thumb-color="sliderHeartbeat.color"
-            thumb-label="always"
-            step="1"
-            ticks="always"
-            tick-size="1"
-            :min="sliderHeartbeat.minLower"
-            :max="sliderHeartbeat.maxLower"
-          ></v-slider>
-        </v-list-item>
-
-        <!-- Slider upper heartbeat -->
-        <v-list-item>
-          <v-slider
-            v-model="sliderHeartbeat.valUpper"
-            :label="sliderHeartbeat.labelUpper"
-            :thumb-color="sliderHeartbeat.color"
-            thumb-label="always"
-            step="1"
-            ticks="always"
-            tick-size="1"
-            :min="sliderHeartbeat.valLower"
-            :max="sliderHeartbeat.maxUpper"
-          ></v-slider>
-        </v-list-item>
-
-        <!-- Slider lower food -->
-        <v-list-item>
-          <v-slider
-            v-model="sliderFoodThreshold.valLower"
-            :label="sliderFoodThreshold.labelLower"
-            :thumb-color="sliderFoodThreshold.color"
-            thumb-label="always"
-            step="10"
-            ticks="always"
-            tick-size="1"
-            :min="sliderFoodThreshold.minLower"
-            :max="sliderFoodThreshold.maxLower"
-          ></v-slider>
-        </v-list-item>
-
-        <!-- Slider upper food -->
-        <v-list-item>
-          <v-slider
-            v-model="sliderFoodThreshold.valUpper"
-            :label="sliderFoodThreshold.labelUpper"
-            :thumb-color="sliderFoodThreshold.color"
-            thumb-label="always"
-            step="10"
-            ticks="always"
-            tick-size="1"
-            :min="sliderFoodThreshold.valLower"
-            :max="sliderFoodThreshold.maxUpper"
-          ></v-slider>
-        </v-list-item>
-
-
-        <!-- Slider lower water -->
-        <v-list-item>
-          <v-slider
-            v-model="sliderWaterThreshold.valLower"
-            :label="sliderWaterThreshold.labelLower"
-            :thumb-color="sliderWaterThreshold.color"
-            thumb-label="always"
-            step="10"
-            ticks="always"
-            tick-size="1"
-            :min="sliderWaterThreshold.minLower"
-            :max="sliderWaterThreshold.maxLower"
-          ></v-slider>
-        </v-list-item>
-
-        <!-- Slider upper water -->
-        <v-list-item>
-          <v-slider
-            v-model="sliderWaterThreshold.valUpper"
-            :label="sliderWaterThreshold.labelUpper"
-            :thumb-color="sliderWaterThreshold.color"
-            thumb-label="always"
-            step="10"
-            ticks="always"
-            tick-size="1"
-            :min="sliderWaterThreshold.valLower"
-            :max="sliderWaterThreshold.maxUpper"
-          ></v-slider>
-        </v-list-item>
-
-
-
-        <v-list-item>
-          <v-radio-group v-model="healthRdios">
-            <v-radio v-for="item in healthStates" :key="item" :value="item">
-              <template v-slot:label>
-                <strong class="primary--text">{{item}}</strong>
-              </template>
-            </v-radio>
-          </v-radio-group>
-        </v-list-item>
-        <v-list-item>
-          <v-slider
-            v-model="sliderPatient.val"
-            :label="sliderPatient.label"
-            :thumb-color="sliderPatient.color"
+            v-model="sliderFoodQtaVet.val"
+            :label="sliderFoodQtaVet.label"
+            :thumb-color="sliderFoodQtaVet.color"
             thumb-label="always"
             step="50"
             ticks="always"
-            tick-size="4"
-            :min="sliderPatient.min"
-            :max="sliderPatient.max"
+            tick-size="1"
+            :min="sliderFoodQtaVet.min"
+            :max="sliderFoodQtaVet.max"
           ></v-slider>
-        </v-list-item>
+
+          <v-virtual-scroll
+            :items="healthFoodHours"
+            height="200"
+            item-height="64"
+          >
+            <template v-slot:default="{ item }">
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title>{{ item.Time }}</v-list-item-title>
+                  <v-list-item-subtitle>
+                    {{ item.Qta }} gr
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+            </template>
+          </v-virtual-scroll>
+
         </template>
         <template
           v-if="checkPermissions('foodAttendant') || checkPermissions('manager')"
         >
           <v-subheader><strong>Sezione cibo</strong></v-subheader>
 
-          <v-list-item>
-            <v-slider
-              v-model="sliderSize.val"
-              :label="sliderSize.label"
-              :thumb-color="sliderSize.color"
-              thumb-label="always"
-              step="50"
-              ticks="always"
-              tick-size="4"
-              :min="sliderSize.min"
-              :max="sliderSize.max"
-            ></v-slider>
+      <v-list-item>
+            <v-spacer />
+
+            <v-time-picker v-model="selectedTimeEmployee" ></v-time-picker>
+            <v-spacer />
           </v-list-item>
-          <v-subheader><strong>Sezione taglie</strong></v-subheader>
+
+          <v-list-item>
+            <v-spacer />
+
+            <v-btn @click="addRationsEmployee" depressed small class="px-8 py-4">
+              Aggiungi
+            </v-btn>
+            <v-spacer />
+          </v-list-item>
+
+          <v-list-item>
+            <v-spacer />
+
+            <v-btn @click="cleanFoodEmployee" depressed small class="px-8 py-4">
+              Pulisci
+            </v-btn>
+            <v-spacer />
+          </v-list-item>
+
+          <v-slider
+            v-model="sliderFoodQtaEmployee.val"
+            :label="sliderFoodQtaEmployee.label"
+            :thumb-color="sliderFoodQtaEmployee.color"
+            thumb-label="always"
+            step="50"
+            ticks="always"
+            tick-size="1"
+            :min="sliderFoodQtaEmployee.min"
+            :max="sliderFoodQtaEmployee.max"
+          ></v-slider>
+
           <v-list-item>
             <v-select
               :items="sliderSize.size"
@@ -321,14 +417,27 @@
             ></v-select>
           </v-list-item>
 
-          <v-col>
-            <h2>Piccolo</h2>
-            <h4>222</h4>
-            <h2>Medio</h2>
-            <h4>444</h4>
-            <h2>Grande</h2>
-            <h4>667</h4>
-          </v-col>
+          <v-virtual-scroll
+            :items="healthFoodDSize"
+            height="200"
+            item-height="64"
+          >
+            <template v-slot:default="{ item }">
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title>
+                      <strong v-if="item.Size === 'Piccolo'" class="red--text text--lighten-1">Piccolo</strong>
+                      <strong v-if="item.Size === 'Medio'" class="blue--text text--lighten-1">Medio</strong>
+                      <strong v-if="item.Size === 'Grande'" class="green--text text--lighten-1">Grande</strong>
+                    </v-list-item-title>
+                  <v-list-item-subtitle>
+                    {{ item.Time }} --
+                    {{ item.Qta }} gr
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+            </template>
+          </v-virtual-scroll>
         </template>
       </v-list>
 
@@ -357,8 +466,12 @@ export default {
   },
   data() {
     return {
+      selectedTimeVet: "12:00",
+      selectedTimeEmployee: "12:00",
     //  datesForFood: ['2020-01-01', '2021-01-01'],D
       healthStates: ["In salute", "In degenza", "In terapia","In osservazione"],
+      healthFoodHours: [{"Time":"12:00","Qta":100},{"Time":"12:00","Qta":1200}],
+      healthFoodDSize: [{"Size":"Piccolo","Time":"12:00","Qta":100},{"Size":"Medio","Time":"12:00","Qta":1200},{"Size":"Grande","Time":"12:00","Qta":1200}],
       datesForFood: [],
       timeRangeConsumedWater: 0,
       timeRangeConsumedFood: 0,
@@ -416,6 +529,20 @@ export default {
         maxLower: 4000,
         color: "green",
       },
+      sliderFoodQtaVet: {
+        label: "Qta cibo",
+        min: 50,
+        val: 50,
+        max: 2000,
+        color: "orange",
+      },
+      sliderFoodQtaEmployee: {
+        label: "Qta cibo",
+        min: 50,
+        val: 50,
+        max: 2000,
+        color: "grey",
+      },
       sliderPatient: {
         label: "Qta cibo degenza",
         min: 50,
@@ -424,12 +551,7 @@ export default {
         color: "red",
       },
       sliderSize: {
-        label: "Qta cibo taglia",
-        min: 50,
-        val: 100,
-        max: 1000,
-        color: "red",
-        selectedSize: "piccolo",
+        selectedSize: "Piccolo",
         size: ["Piccolo", "Medio", "Grande"],
       },
       healthRdios: '',
@@ -493,6 +615,18 @@ export default {
     sendStats() {
 
     },
+    addRationsVet() {
+      this.healthFoodHours.push({"Time": this.selectedTimeVet, "Qta": this.sliderFoodQtaVet.val})
+    },
+    cleanFoodVet() {
+      this.healthFoodHours = []
+    },
+    cleanFoodEmployee() {
+      this.healthFoodDSize = []
+    },
+    addRationsEmployee() {
+      this.healthFoodDSize.push({"Size": this.sliderSize.selectedSize  ,"Time": this.selectedTimeEmployee, "Qta": this.sliderFoodQtaEmployee.val})
+    },
     /*types: wcons, fcons, hb, temp*/
     async requestFoodValues() {
       this.foodAndWaterChartData = []
@@ -501,7 +635,7 @@ export default {
         const names = ['Cibo','Acqua']
         for (const x of Array(2).keys()) {
           const resFood = await this.axios
-            .get("/view/logs/dog",{ 
+            .get("/view/logs/dog",{
               params: {
                 'type': types[x],
                 'dog': this.$store.state.selectedDog.chip_id,
@@ -524,7 +658,7 @@ export default {
                 foodStats.data.push(element)
               });
               this.foodAndWaterChartData.push(foodStats)
-            }   
+            }
         }
       }
     },
@@ -546,12 +680,12 @@ export default {
                 HealthStats.data.push(element)
               });
               this.healthChartData.push(HealthStats)
-            }   
+            }
         }
       }
     },
     cleanAll() {
-      this.lowerDateForFoodAndWater = new Date() 
+      this.lowerDateForFoodAndWater = new Date()
       this.upperDateForFoodAndWater = new Date(this.lowerDateForFoodAndWater)
       this.upperDateForFoodAndWater.setDate(this.upperDateForFoodAndWater.getDate() + 1000)
       this.lowerDateForFoodAndWater.setDate(this.lowerDateForFoodAndWater.getDate() - 1000)
@@ -562,7 +696,7 @@ export default {
       this.lowerDateForHealth.setDate(this.lowerDateForHealth.getDate() - 1000)
     },
 
-    
+
     genRandomIndex(length) {
       return Math.ceil(Math.random() * (length - 1));
     },
