@@ -61,8 +61,15 @@ export default {
     async tryLogIn1() {
    //   this.$router.push("/Home").catch(() => {});
 
-    const testNum = 6;
+    const testNum = 7;
+    /*const config  = {
+                    method: 'post',
+                    url: '/set/schedule/size',
+                    //data: JSON.stringify({'size': 3}),
+                    //headers: { 'content-type': 'application/json' },
+                };*/
     var res;
+    var payload;
     switch (testNum) {
       case 1: //test env logs
         res= this.axios.get("/view/logs/env",{ crossdomain: true }).then((response) => {
@@ -81,7 +88,7 @@ export default {
           }
         })
         break;
-        case 3:   //test total of a dog consumption given range of time      
+      case 3:   //test total of a dog consumption given range of time      
         res = await this.axios.get("/view/logs/dog/total",{ 
           params: {
             'dog': 'c01', 
@@ -90,27 +97,38 @@ export default {
           }
         })
         break;
-        case 4:   //test last temp and hb retrieval     
+      case 4:   //test last temp and hb retrieval     
         res = await this.axios.get("/view/logs/dog/last",{ 
           params: {
             'dog': 'c03'
           }
         })
         break;
-        case 5: //roles by user
+      case 5: //roles by user
         res = await this.axios.get("/view/user/roles",{ 
           params: {
             username: 'ciccio01'
           }
         })  
         break;
-        case 6: //users by role        
+      case 6: //users by role        
           res = await this.axios.get("/view/roles/user",{ 
           params: {
             role: 'vet'
           }
         })  
         break;
+      case 7: //test set schedule (size)
+          payload = {
+                "size": 2,
+                "time": '13:00',
+                "grams": 274
+          }
+        res = await this.axios.post("/set/schedule/size", payload)              
+        break;
+      case 8: 
+        
+        break;          
       default:
         break;
     }
