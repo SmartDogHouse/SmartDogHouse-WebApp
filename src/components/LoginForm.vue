@@ -76,12 +76,20 @@ export default {
           params: {
             'type': "temp",
             'dog': "c02",
-            'lowerT': "1",
-            'upperT': "3"
+            'lowerT': "2021-01-01T00:00",
+            'upperT': "2021-12-31T22:00"
           }
         })
         break;
-    
+        case 3:   //test total of a dog consumption given range of time      
+        res = await this.axios.get("/view/logs/dog/total",{ 
+          params: {
+            'dog': 'c01', 
+            'lowerT': "2021-01-01T00:00",
+            'upperT': "2021-12-31T22:00"
+          }
+        })
+        break;
       default:
         break;
     }
