@@ -194,17 +194,35 @@ export default {
   },
   methods: {
     async onClickDog (value) {
+       this.$store.dispatch("clear");
+
       this.$store.state.selectedDog = this.$store.state.dogs.find(dog => dog.chip_id === value)
 
       var lowerT = new Date().toISOString().slice(0, 14)
       var upperT = new Date().toISOString().slice(0, 14)
       lowerT = `${lowerT}00:00`
       upperT = `${upperT}23:59`
+      var foodTotal = 0
+      var waterTotal = 0
+      var lastHB = 0
+      var lastTemp = 0
+
       const todayFoodConsumption = await this.axios
             .get("/view/logs/dog/total",{ params: {'dog': this.$store.state.selectedDog.chip_id, 'lowerT': lowerT, 'upperT': upperT} })
 
-      this.$store.dispatch("saveDogsStats",{"foodTotal": todayFoodConsumption.data.foodTotal, "waterTotal": todayFoodConsumption.data.waterTotal,"lastHB":0,"lastTemp":0});
-      console.log(this.$store.state.selectedDogStats.foodTotal)
+      const lastHealthDetections = await this.axios
+            .get("/view/logs/dog/last",{ params: {'dog': this.$store.state.selectedDog.chip_id} })
+
+      if(todayFoodConsumption.status == 200){
+        foodTotal = todayFoodConsumption.data.foodTotal
+        waterTotal = lastHealthDetections.data.waterTotal
+      }
+      if(lastHealthDetections.status == 200 && lastHealthDetections.data.length > 0 ){
+        lastHB = lastHealthDetections.data[0].last_hb
+        lastTemp = lastHealthDetections.data[0].last_temp
+      }
+        this.$store.dispatch("saveDogsStats",{"foodTotal": foodTotal, "waterTotal": waterTotal,"lastHB":lastHB,"lastTemp":lastTemp});
+
     },
     notificationArrived (event) {
       const msg = JSON.parse(event.data).Notify

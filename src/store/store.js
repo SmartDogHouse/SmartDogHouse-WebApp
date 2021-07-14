@@ -17,6 +17,10 @@ export default new Vuex.Store({
     SAVE_DOG_STATS(state, schemas){
       state.selectedDogStats = schemas;
     },
+    CLEAR(state) {
+      state.selectedDogStats = {"foodTotal": 0, "waterTotal": 0,"lastHB":0,"lastTemp":0}
+      state.selectedDog = []
+    },
   },
   actions: {
      loadDogs({ commit }) {
@@ -32,6 +36,9 @@ export default new Vuex.Store({
     },
     saveDogsStats({ commit }, dogStats) {
       commit("SAVE_DOG_STATS", dogStats);
+    },
+    clear({ commit } ) {
+      commit("CLEAR");
     },
 
   }
