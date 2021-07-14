@@ -61,7 +61,7 @@ export default {
     async tryLogIn1() {
    //   this.$router.push("/Home").catch(() => {});
 
-    const testNum = 3;
+    const testNum = 5;
     var res;
     switch (testNum) {
       case 1: //test env logs
@@ -97,6 +97,13 @@ export default {
           }
         })
         break;
+        case 5: //roles by user
+        res = await this.axios.get("/view/user/roles",{ 
+          params: {
+            username: 'ciccio01'
+          }
+        })  
+        break;      
       default:
         break;
     }
