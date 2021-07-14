@@ -61,7 +61,7 @@ export default {
     async tryLogIn1() {
    //   this.$router.push("/Home").catch(() => {});
 
-    const testNum = 2;
+    const testNum = 3;
     var res;
     switch (testNum) {
       case 1: //test env logs
@@ -93,7 +93,7 @@ export default {
         case 4:   //test last temp and hb retrieval     
         res = await this.axios.get("/view/logs/dog/last",{ 
           params: {
-            'dog': 'c01'
+            'dog': 'c03'
           }
         })
         break;
