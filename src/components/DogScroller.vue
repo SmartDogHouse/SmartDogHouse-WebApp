@@ -21,22 +21,35 @@ It changes the functionality given based on the privilege provided-->
                 {{ item.initials }}
               </v-avatar>
             </v-list-item-avatar>
-
+            <v-list-item-action>
+              <v-btn
+                @click="emitButtonRemovePressed(item.id)"
+                depressed
+                small
+                class="px-1 py-4"
+              >
+                <v-icon color="orange darken-4" center>
+                  mdi-close
+                </v-icon>
+              </v-btn>
+              
+            </v-list-item-action>
             <v-list-item-content>
               <v-list-item-title>{{ item.fullName }}</v-list-item-title>
             </v-list-item-content>
 
             <v-list-item-action>
               <v-btn
-                @click="emitButtonPressed(item.id)"
+                @click="emitButtonLoadPressed(item.id)"
                 depressed
                 small
-                class="px-8 py-4"
+                class="px-1 py-4"
               >
                 <v-icon color="orange darken-4" center>
                   mdi-open-in-new
                 </v-icon>
               </v-btn>
+              
             </v-list-item-action>
           </v-list-item>
         </template>
@@ -91,12 +104,12 @@ export default {
         };
       });
     },
-    emitButtonPressed(name){
+    emitButtonLoadPressed(name){
       this.$emit('dogChoosed', name)
     },
-    addDogs(name){
-      this.$emit('dogChoosed', name)
-    }
+    emitButtonRemovePressed(name){
+      this.$emit('dogRemoved', name)
+    },
   },
 };
 </script>
