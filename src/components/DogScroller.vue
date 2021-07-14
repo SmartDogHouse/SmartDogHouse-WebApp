@@ -8,7 +8,7 @@ It changes the functionality given based on the privilege provided-->
         Cani registrati
         <v-spacer />
       </v-card-title>
-
+      <DogsManager/>
       <v-card-text class="pt-4">
         Seleziona un cane da visualizzare
       </v-card-text>
@@ -47,7 +47,9 @@ It changes the functionality given based on the privilege provided-->
 
 <script>
 export default {
-  components: {},
+  components: {
+        DogsManager: () => import("../components/DogsManager.vue")
+  },
   props: {
     names: Array,
     codes: Array,
@@ -90,6 +92,9 @@ export default {
       });
     },
     emitButtonPressed(name){
+      this.$emit('dogChoosed', name)
+    },
+    addDogs(name){
       this.$emit('dogChoosed', name)
     }
   },
