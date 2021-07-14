@@ -9,7 +9,7 @@ import VSwitch from 'v-switch-case';
 import DatetimePicker from 'vuetify-datetime-picker'
 
 
-const baseURL = "http://127.0.0.1:3000/";
+const baseURL = "http://127.0.0.1:8010/proxy/";
 
 Vue.use(VueAxios, axios);
 Vue.use(DatetimePicker)
