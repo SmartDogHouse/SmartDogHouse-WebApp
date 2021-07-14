@@ -33,8 +33,8 @@ export default {
   },
     data() {
     return {
-      consumption: [['Cagnino', 44], ['Cagnone', 23]],
-      umidityAndTemperatureHistory: [['Cagnino', 44], ['Cagnone1', 233],['Cagnino1', 443], ['Cagnone', 234]],
+      consumption: [['Gennaio', 44], ['Febbraio', 23]],
+      umidityAndTemperatureHistory: [['2021-07-14', 44], ['2021-07-15', 50],['2021-07-16', 36], ['2021-07-17', 25]],
       columnChartName: "Statistiche consumi",
       linemnChartName: "Statistiche umidita e temperatura"
 
