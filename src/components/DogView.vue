@@ -603,9 +603,9 @@ export default {
     
     async updateDogs() {
       //Update dogs food-employee by size
-       await this.axios.post("/set/schedule/size", {"size": this.sliderSize.selectedSize,"time": this.selectedTimeEmployee,"grams": this.sliderFoodQtaEmployee.val})     
+     /*  await this.axios.post("/set/schedule/size", {"size": this.sliderSize.selectedSize,"time": this.selectedTimeEmployee,"grams": this.sliderFoodQtaEmployee.val})     
+      
       //Update ESP if temp and HB treshold are changed
-
      if(this.$store.state.selectedDog.heartbeat_lower_bound !== this.sliderHeartbeat.valLower ||
         this.$store.state.selectedDog.heartbeat_upper_bound !== this.sliderHeartbeat.valUpper ||
         this.$store.state.selectedDog.temp_lower_bound !== this.sliderTemperature.valLower ||
@@ -619,6 +619,7 @@ export default {
             })     
         }
 
+      //With the new food schedule
       if(this.healthFoodHours.length > 0){
           await this.axios.post("/send/mqtt/",{
           "topic" :`ESP/${this.$store.state.selectedDog.chip_id}`,
@@ -631,6 +632,14 @@ export default {
             el => {return {"Time": el.Time,"Qta": el.Qta} })
         })     
       }
+  */
+
+      //Set new dog status if changed
+      if(this.getDogHealthState(this.$store.state.selectedDog.status) !== this.healthRdios){ 
+        await this.axios.post("/set/dog/status", {"chip_id": this.$store.state.selectedDog.chip_id,"status": this.getDogHealthState(this.healthRdios)})
+      }
+
+      //With the new food schedule
 
    
    },
