@@ -9,8 +9,8 @@ import VSwitch from 'v-switch-case';
 import DatetimePicker from 'vuetify-datetime-picker'
 
 //Don't forget stage in URL!!!!
-//const baseURL = "http://127.0.0.1:8010/proxy/";
-const baseURL = "https://sd2go08n7j.execute-api.eu-west-2.amazonaws.com/Prod/";
+const baseURL = "http://127.0.0.1:8010/proxy/";
+//const baseURL = "https://sd2go08n7j.execute-api.eu-west-2.amazonaws.com/Prod/";
 
 Vue.use(VueAxios, axios);
 Vue.use(DatetimePicker)

@@ -61,13 +61,8 @@ export default {
     async tryLogIn1() {
    //   this.$router.push("/Home").catch(() => {});
 
-    const testNum = 7;
-    /*const config  = {
-                    method: 'post',
-                    url: '/set/schedule/size',
-                    //data: JSON.stringify({'size': 3}),
-                    //headers: { 'content-type': 'application/json' },
-                };*/
+    const testNum = 9;
+
     var res;
     var payload;
     switch (testNum) {
