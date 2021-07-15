@@ -29,11 +29,10 @@ export default {
       StatsChart: () => import("../components/StatsChart"),
   },
   props: {
-
+      consumption: Array,
   },
     data() {
     return {
-      consumption: [['Gennaio', 44], ['Febbraio', 23]],
       umidityAndTemperatureHistory: [['2021-07-14', 44], ['2021-07-15', 50],['2021-07-16', 36], ['2021-07-17', 25]],
       columnChartName: "Statistiche consumi",
       linemnChartName: "Statistiche umidita e temperatura"

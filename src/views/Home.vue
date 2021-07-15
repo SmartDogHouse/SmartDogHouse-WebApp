@@ -34,7 +34,7 @@
     <v-main class="grey">
       <div v-switch="view">
           <v-container v-case="links[0]">
-          <AdministrationCommands />
+          <AdministrationCommands :consumption="consumption" />
           <v-divider />
           <EnvStats :umidity="umidity" :temperature="temperature" />
           <v-row>
@@ -155,6 +155,7 @@ export default {
     temperature : "34",
     umidity : "34",
     view:"",
+    consumption: [],
     names: [],
     codes: [],
     drawer: false,
@@ -162,7 +163,7 @@ export default {
     links: ["Gestore", "Addetto cibo", "Addetto alla salute","Addetto alla videosorveglianza", "Altro addetto"],
   }),
   props: {},
-  created() {
+ async created() {
     this.connection = new WebSocket("wss://c07eionjgd.execute-api.eu-west-2.amazonaws.com/Prod")
     this.connection.onmessage = this.notificationArrived
 
@@ -176,6 +177,18 @@ export default {
           conns.send({"data":"Keep-Alive-Msg"});
       }
       }, 120000);
+
+       var res = await this.axios.get("/view/logs/dog/total",{ 
+          params: {
+            'dog': 'c01', 
+            'lowerT': "2021-01-01T00:00",
+            'upperT': "2021-12-31T22:00"
+          }
+        })
+
+
+        console.log(res.data)
+      this.consumption = [['Acqua', res.data.waterTotal],['Cibo',res.data.foodTotal]]
 
     this.$store.dispatch("loadDogs");
     this.changeView("Gestore")
