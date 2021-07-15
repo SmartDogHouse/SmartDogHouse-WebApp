@@ -599,11 +599,8 @@ export default {
     checkPermissions(name) {
       return this.$props.permissions.includes(name)
     },
-
-    
     async updateDogs() {
      
-      
       //Update ESP if temp and HB treshold are changed
      if(this.$store.state.selectedDog.heartbeat_lower_bound !== this.sliderHeartbeat.valLower ||
         this.$store.state.selectedDog.heartbeat_upper_bound !== this.sliderHeartbeat.valUpper ||
@@ -617,7 +614,6 @@ export default {
                          "tempUpper":this.sliderTemperature.valUpper}
             })     
         }
-     
 
       //Update dogs food and water threashold
        var payload = {
@@ -658,16 +654,10 @@ export default {
         })     
       }
 
-
-  
-
-  
       //Set new dog status if changed
       if(this.getDogHealthState(this.$store.state.selectedDog.status) !== this.healthRdios){ 
         await this.axios.post("/set/dog/status", {"chip_id": this.$store.state.selectedDog.chip_id,"status": this.getDogHealthState(this.healthRdios)})
       }
-  
-  
    },
     addRationsVet() {
       this.healthFoodHours.push({"Time": this.selectedTimeVet, "Qta": this.sliderFoodQtaVet.val})

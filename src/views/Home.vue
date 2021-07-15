@@ -185,9 +185,6 @@ export default {
             'upperT': "2021-12-31T22:00"
           }
         })
-
-
-        console.log(res.data)
       this.consumption = [['Acqua', res.data.waterTotal],['Cibo',res.data.foodTotal]]
 
     this.$store.dispatch("loadDogs");
@@ -213,7 +210,6 @@ export default {
        this.$store.dispatch("clear");
 
       this.$store.state.selectedDog = this.$store.state.dogs.find(dog => dog.chip_id === value)
-      console.log(this.$store.state.selectedDog)
       var lowerT = new Date().toISOString().slice(0, 14)
       var upperT = new Date().toISOString().slice(0, 14)
       lowerT = `${lowerT}00:00`
@@ -240,8 +236,12 @@ export default {
         this.$store.dispatch("saveDogsStats",{"foodTotal": foodTotal, "waterTotal": waterTotal,"lastHB":lastHB,"lastTemp":lastTemp});
 
     },
-    dogRemoved(value){
-      console.log(value)
+    async dogRemoved(value){
+
+        var res = await this.axios.post("/set/dog/remove", {"chip_id":value})
+        if(res.status == 200){
+          this.$router.go()
+        }
     },
     notificationArrived (event) {
       const msg = JSON.parse(event.data).Notify

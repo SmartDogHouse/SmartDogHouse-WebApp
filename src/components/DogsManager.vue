@@ -160,6 +160,7 @@ export default {
        var res = await this.axios.post("/set/new/dog", payload)
         if(res.status == 200){
           this.dialog = false
+          this.$router.go()
         }
     }
   }
