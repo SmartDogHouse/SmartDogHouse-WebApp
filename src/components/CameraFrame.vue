@@ -6,8 +6,10 @@
         <v-card class="mx-auto" min-width="50vw" tile>
           <v-list-item>
             <v-list-item-content>
+            <!--src="https://picsum.photos/510/300?random" -->
+
               <v-img
-                src="https://picsum.photos/510/300?random"
+                src="http://2.tcp.eu.ngrok.io:15456/video_feed"
                 aspect-ratio="1.4"
               ></v-img>
             </v-list-item-content>
