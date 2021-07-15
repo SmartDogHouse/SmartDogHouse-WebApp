@@ -162,11 +162,11 @@
       <v-divider />
 
       <v-list flat subheader three-line>
-        <v-subheader><strong>Soglie impostabili</strong></v-subheader>
+
 
         <template v-if="checkPermissions('vet') || checkPermissions('manager')">
-          <v-subheader> <strong>Sezione salute</strong></v-subheader>
-
+          <h2 class="mx-5"><strong>Sezione salute cane specifico</strong></h2>
+        <v-subheader><strong>Soglie impostabili</strong></v-subheader>
           <!-- Slider lower temperature -->
           <v-list-item>
             <v-slider
@@ -298,20 +298,6 @@
           </v-list-item>
 
           <v-list-item>
-            <v-slider
-              v-model="sliderPatient.val"
-              :label="sliderPatient.label"
-              :thumb-color="sliderPatient.color"
-              thumb-label="always"
-              step="50"
-              ticks="always"
-              tick-size="4"
-              :min="sliderPatient.min"
-              :max="sliderPatient.max"
-            ></v-slider>
-          </v-list-item>
-
-          <v-list-item>
             <v-spacer />
 
             <v-time-picker v-model="selectedTimeVet" ></v-time-picker>
@@ -320,7 +306,6 @@
 
           <v-list-item>
             <v-spacer />
-
             <v-btn @click="addRationsVet" depressed small class="px-8 py-4">
               Aggiungi
             </v-btn>
@@ -369,7 +354,7 @@
         <template
           v-if="checkPermissions('foodAttendant') || checkPermissions('manager')"
         >
-          <v-subheader><strong>Sezione cibo</strong></v-subheader>
+          <h2><strong>Sezione cibo tutti i cani</strong></h2>
 
       <v-list-item>
             <v-spacer />
@@ -426,8 +411,8 @@
               <v-list-item>
                 <v-list-item-content>
                   <v-list-item-title>
-                      <strong v-if="item.Size === 'Piccolo'" class="red--text text--lighten-1">Piccolo</strong>
-                      <strong v-if="item.Size === 'Medio'" class="blue--text text--lighten-1">Medio</strong>
+                      <strong v-if="item.Size === 'Piccola'" class="red--text text--lighten-1">Piccola</strong>
+                      <strong v-if="item.Size === 'Media'" class="blue--text text--lighten-1">Media</strong>
                       <strong v-if="item.Size === 'Grande'" class="green--text text--lighten-1">Grande</strong>
                     </v-list-item-title>
                   <v-list-item-subtitle>
@@ -444,7 +429,7 @@
       <v-divider />
 
       <v-list-item-action>
-        <v-btn @click="sendStats" depressed small class="px-8 py-4">
+        <v-btn @click="updateDogs" depressed small class="px-8 py-4">
           Applica
         </v-btn>
       </v-list-item-action>
@@ -471,7 +456,7 @@ export default {
     //  datesForFood: ['2020-01-01', '2021-01-01'],D
       healthStates: ["In salute", "In degenza", "In terapia","In osservazione"],
       healthFoodHours: [{"Time":"12:00","Qta":100},{"Time":"12:00","Qta":1200}],
-      healthFoodDSize: [{"Size":"Piccolo","Time":"12:00","Qta":100},{"Size":"Medio","Time":"12:00","Qta":1200},{"Size":"Grande","Time":"12:00","Qta":1200}],
+      healthFoodDSize: [{"Size":"Piccola","Time":"12:00","Qta":100},{"Size":"Media","Time":"12:00","Qta":1200},{"Size":"Grande","Time":"12:00","Qta":1200}],
       datesForFood: [],
       timeRangeConsumedWater: 0,
       timeRangeConsumedFood: 0,
@@ -543,16 +528,9 @@ export default {
         max: 2000,
         color: "grey",
       },
-      sliderPatient: {
-        label: "Qta cibo degenza",
-        min: 50,
-        val: 100,
-        max: 1000,
-        color: "red",
-      },
       sliderSize: {
-        selectedSize: "Piccolo",
-        size: ["Piccolo", "Medio", "Grande"],
+        selectedSize: "Piccola",
+        size: ["Piccola", "Media", "Grande"],
       },
       healthRdios: '',
     };
@@ -567,7 +545,6 @@ export default {
           this.sliderTemperature.valLower = x.temp_lower_bound
           this.sliderTemperature.valUpper = x.temp_upper_bound
           this.healthRdios = this.getDogHealthState(x.status)
-          console.log(x.heartbeat_lower_bound)
     },
   },
   methods: {
@@ -578,9 +555,9 @@ export default {
     getDogSizeTraslation(size) {
       switch (size) {
         case 1:
-          return "Piccolo"
+          return "Piccola"
         case 2:
-         return "Medio"
+         return "Media"
         case 3:
           return "Grande"
         default:
@@ -612,8 +589,9 @@ export default {
     checkPermissions(name) {
       return this.$props.permissions.includes(name)
     },
-    sendStats() {
-
+    async updateDogs() {
+        await this.axios.post("/set/schedule/size", {"size": this.sliderSize.selectedSize,"time": this.selectedTimeEmployee,"grams": this.sliderFoodQtaEmployee.val})     
+    
     },
     addRationsVet() {
       this.healthFoodHours.push({"Time": this.selectedTimeVet, "Qta": this.sliderFoodQtaVet.val})

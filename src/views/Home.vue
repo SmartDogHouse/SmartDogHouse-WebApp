@@ -42,6 +42,7 @@
               <v-sheet rounded="lg" min-height="268">
                 <dogScroller
                   @dogChoosed="onClickDog"
+                  @dogRemoved="dogRemoved"
                   :names="names"
                   :codes="codes"
                 ></dogScroller>
@@ -67,6 +68,7 @@
               <v-sheet rounded="lg" min-height="268">
                 <dogScroller
                   @dogChoosed="onClickDog"
+                  @dogRemoved="dogRemoved"
                   :names="names"
                   :codes="codes"
                 ></dogScroller>
@@ -95,6 +97,7 @@
               <v-sheet rounded="lg" min-height="268">
                 <dogScroller
                   @dogChoosed="onClickDog"
+                  @dogRemoved="dogRemoved"
                   :names="names"
                   :codes="codes"
                 ></dogScroller>
@@ -223,6 +226,9 @@ export default {
       }
         this.$store.dispatch("saveDogsStats",{"foodTotal": foodTotal, "waterTotal": waterTotal,"lastHB":lastHB,"lastTemp":lastTemp});
 
+    },
+    dogRemoved(value){
+      console.log(value)
     },
     notificationArrived (event) {
       const msg = JSON.parse(event.data).Notify
