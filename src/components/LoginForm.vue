@@ -61,7 +61,7 @@ export default {
     async tryLogIn1() {
    //   this.$router.push("/Home").catch(() => {});
 
-    const testNum = 9;
+    const testNum = 10;
 
     var res;
     var payload;
@@ -138,6 +138,16 @@ export default {
               }
         res = await this.axios.post("/set/ranges/cons/dog ", payload)  
         break;
+      case 10: //insert dog
+       payload = {
+          "chip_id": 'c05',
+          "name": 'Bob',
+          "size": 3,
+          "status": 'healthy',
+          "cage": 57
+        }
+        res = await this.axios.post("/set/new/dog", payload)
+      break;
       default:
         break;
     }
