@@ -61,7 +61,7 @@ export default {
     async tryLogIn1() {
    //   this.$router.push("/Home").catch(() => {});
 
-    const testNum = 11;
+    const testNum = 10;
 
     var res;
     var payload;
@@ -155,19 +155,26 @@ export default {
         }      
         res = await this.axios.post("/set/dog/status", payload)
         break;
+      case 12: //transfer dog
+        payload = {
+            "chip_id": 'c01',
+            "new_cage": 11
+        }
+        res = await this.axios.post("/set/dog/transfer", payload)
+       
+      break;
+      case 13: //delete dog
+        payload = {
+            "chip_id": 'c05'
+        }
+        res = await this.axios.post("/set/dog/remove", payload)
+      break;
       default:
         break;
     }
 
     console.log(res.data);
 
-        
-        //console.log(JSON.parse(`${response.data}`));
-      
-
-       /*     this.axios.get("/req/auth",{ crossdomain: true }).then((response) => {
-        console.log(response.data);
-      });*/
     },
   },
 };
