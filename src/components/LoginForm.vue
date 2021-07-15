@@ -61,7 +61,7 @@ export default {
     async tryLogIn1() {
    //   this.$router.push("/Home").catch(() => {});
 
-    const testNum = 10;
+    const testNum = 13;
 
     var res;
     var payload;
@@ -140,18 +140,18 @@ export default {
         break;
       case 10: //insert dog
        payload = {
-          "chip_id": 'c05',
+          "chip_id": 'c17',
           "name": 'Bob',
-          "size": 3,
-          "status": 'healthy',
-          "cage": 57
+          "size": 1,
+          "status": 'dead',
+          "cage": 40
         }
         res = await this.axios.post("/set/new/dog", payload)
       break;
       case 11: //change dog status
        payload = {
-          "chip_id": 'c02',
-          "status": 'curing',
+          "chip_id": "c02",
+          "status": "curing",
         }      
         res = await this.axios.post("/set/dog/status", payload)
         break;
@@ -165,7 +165,7 @@ export default {
       break;
       case 13: //delete dog
         payload = {
-            "chip_id": 'c05'
+            "chip_id": 'c17'
         }
         res = await this.axios.post("/set/dog/remove", payload)
       break;
