@@ -455,8 +455,14 @@ export default {
       selectedTimeEmployee: "12:00",
     //  datesForFood: ['2020-01-01', '2021-01-01'],D
       healthStates: ["In salute", "In degenza", "In terapia","In osservazione"],
-      healthFoodHours: [{"Time":"12:00","Qta":100},{"Time":"12:00","Qta":1200}],
-      healthFoodDSize: [{"Size":"Piccola","Time":"12:00","Qta":100},{"Size":"Media","Time":"12:00","Qta":1200},{"Size":"Grande","Time":"12:00","Qta":1200}],
+      healthFoodHours: [{"Time":"12:00","Qta":300},{"Time":"18:00","Qta":500}],
+      healthFoodDSize: [{"Size":"Piccola","Time":"10:00","Qta":100},
+                        {"Size":"Piccola","Time":"11:00","Qta":200},
+                        {"Size":"Media","Time":"12:00","Qta":300},
+                        {"Size":"Media","Time":"13:00","Qta":400},
+                        {"Size":"Grande","Time":"14:00","Qta":500},
+                        {"Size":"Grande","Time":"15:00","Qta":600}
+                        ],
       datesForFood: [],
       timeRangeConsumedWater: 0,
       timeRangeConsumedFood: 0,
@@ -545,6 +551,10 @@ export default {
           this.sliderTemperature.valLower = x.temp_lower_bound
           this.sliderTemperature.valUpper = x.temp_upper_bound
           this.healthRdios = this.getDogHealthState(x.status)
+          this.sliderFoodThreshold.valLower = x.daily_food_lower_bound
+          this.sliderFoodThreshold.valUpper = x.daily_food_lower_bound
+          this.sliderWaterThreshold.valLower = x.daily_water_lower_bound
+          this.sliderWaterThreshold.valUpper = x.daily_water_lower_bound
     },
   },
   methods: {
@@ -569,18 +579,18 @@ export default {
         case "In salute":
           return "healthy"
         case "In degenza":
-         return "healthy"
+         return "patient"
         case "In terapia":
-          return "healthy"
+          return "curing"
         case "In osservazione":
-          return "healthy"
+          return "under observation"
         case "healthy":
           return "In salute"
-        case "healthy1":
+        case "patient":
          return "In degenza"
-        case "healthy2":
+        case "curing":
           return "In terapia"
-        case "healthy3":
+        case "under observation":
           return "In osservazione"
         default:
           return "In salute"
@@ -589,10 +599,41 @@ export default {
     checkPermissions(name) {
       return this.$props.permissions.includes(name)
     },
-    async updateDogs() {
-        await this.axios.post("/set/schedule/size", {"size": this.sliderSize.selectedSize,"time": this.selectedTimeEmployee,"grams": this.sliderFoodQtaEmployee.val})     
+
     
-    },
+    async updateDogs() {
+      //Update dogs food-employee by size
+       await this.axios.post("/set/schedule/size", {"size": this.sliderSize.selectedSize,"time": this.selectedTimeEmployee,"grams": this.sliderFoodQtaEmployee.val})     
+      //Update ESP if temp and HB treshold are changed
+
+     if(this.$store.state.selectedDog.heartbeat_lower_bound !== this.sliderHeartbeat.valLower ||
+        this.$store.state.selectedDog.heartbeat_upper_bound !== this.sliderHeartbeat.valUpper ||
+        this.$store.state.selectedDog.temp_lower_bound !== this.sliderTemperature.valLower ||
+        this.$store.state.selectedDog.temp_upper_bound !== this.sliderTemperature.valUpper){
+          await this.axios.post("/send/mqtt/",{
+            "topic" :`ESP/${this.$store.state.selectedDog.chip_id}`,
+            "payload" : {"hbLower":this.sliderHeartbeat.valLower,
+                         "hbUpper":this.sliderHeartbeat.valUpper,
+                         "tempLower":this.sliderTemperature.valLower,
+                         "tempUpper":this.sliderTemperature.valUpper}
+            })     
+        }
+
+      if(this.healthFoodHours.length > 0){
+          await this.axios.post("/send/mqtt/",{
+          "topic" :`ESP/${this.$store.state.selectedDog.chip_id}`,
+          "payload" : this.healthFoodHours
+        })     
+      }else if(this.healthFoodDSize.length > 0){
+        await this.axios.post("/send/mqtt/",{
+          "topic" :`ESP/${this.$store.state.selectedDog.chip_id}`,
+          "payload" : this.healthFoodDSize.filter(el => el.Size == this.getDogSizeTraslation(this.$store.state.selectedDog.dog_size)).map(
+            el => {return {"Time": el.Time,"Qta": el.Qta} })
+        })     
+      }
+
+   
+   },
     addRationsVet() {
       this.healthFoodHours.push({"Time": this.selectedTimeVet, "Qta": this.sliderFoodQtaVet.val})
     },

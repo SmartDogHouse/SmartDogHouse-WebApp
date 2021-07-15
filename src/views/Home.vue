@@ -200,7 +200,7 @@ export default {
        this.$store.dispatch("clear");
 
       this.$store.state.selectedDog = this.$store.state.dogs.find(dog => dog.chip_id === value)
-
+      console.log(this.$store.state.selectedDog)
       var lowerT = new Date().toISOString().slice(0, 14)
       var upperT = new Date().toISOString().slice(0, 14)
       lowerT = `${lowerT}00:00`

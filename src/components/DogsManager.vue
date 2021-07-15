@@ -70,9 +70,9 @@
                     <v-radio-group v-model="defaultValueGroupHealth">
                       <v-radio
                         v-for="val in healthStates"
-                        :key="val"
-                        :label="`${val}`"
-                        :value="val"
+                        :key="val.Ita"
+                        :label="`${val.Ita}`"
+                        :value="val.Eng"
                       ></v-radio>
                     </v-radio-group>
                     <v-divider />
@@ -80,9 +80,9 @@
                     <v-radio-group v-model="defaultValueGroupSize">
                       <v-radio
                         v-for="val in dogsSize"
-                        :key="val"
-                        :label="`${val}`"
-                        :value="val"
+                        :key="val.Size"
+                        :label="`${val.Size}`"
+                        :value="val.Value"
                       ></v-radio>
                     </v-radio-group>
                 </v-form>
@@ -119,15 +119,15 @@ import Chart from "chart.js";
 Vue.use(Chartkick.use(Chart));
 export default {
   data: () => ({
-    defaultValueGroupHealth : "In salute",
-    defaultValueGroupSize : "Piccola",
+    defaultValueGroupHealth : "healthy",
+    defaultValueGroupSize : 1,
     dialog: false,
     ID: "",
     name: "",
     cage:"",
     valid: true,
-    healthStates: ["In salute", "In degenza", "In terapia","In osservazione"],
-    dogsSize: ["Piccola", "Media", "Grande"],
+    healthStates: [{"Ita":"In salute","Eng":"healthy"}, {"Ita":"In degenza","Eng":"patient"}, {"Ita":"In terapia","Eng":"curing"},{"Ita":"In osservazione","Eng":"under observation"}],
+    dogsSize: [{"Size":"Piccola","Value":1}, {"Size":"Media","Value":2}, {"Size":"Grande","Value":3}],
     nameRules: [
       v => !!v || 'Obbligatorio',
       v => (v && v.length <= 10) || 'Il nome deve essere più corto di 10 caratteri',
@@ -144,7 +144,24 @@ export default {
   methods: {
     validate () {
       this.$refs.form.validate()
+      if(this.valid){
+        this.sendDog()
+      }
     },
+    async sendDog(){
+      var payload = {
+          "chip_id": this.ID,
+          "name": this.name,
+          "size": this.defaultValueGroupSize,
+          "status": this.defaultValueGroupHealth,
+          "cage": this.cage
+        }
+
+       var res = await this.axios.post("/set/new/dog", payload)
+        if(res.status == 200){
+          this.dialog = false
+        }
+    }
   }
 };
 </script>
