@@ -148,11 +148,11 @@ export default {
         }
         res = await this.axios.post("/set/new/dog", payload)
       break;
-      case 11: //set dog status
-        payload = {
-          "chip_id": 'c05',
+      case 11: //change dog status
+       payload = {
+          "chip_id": 'c02',
           "status": 'curing',
-        }
+        }      
         res = await this.axios.post("/set/dog/status", payload)
         break;
       default:
