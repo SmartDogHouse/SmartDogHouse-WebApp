@@ -126,9 +126,23 @@ export default {
           }
         res = await this.axios.post("/set/schedule/size", payload)              
         break;
-      case 8: 
-        
-        break;          
+      case 8: //test set schedule (dog)
+        payload = {
+              "chip_id": 'c02',
+              "time": '12:00',
+              "grams": 320
+        }
+        res = await this.axios.post("/set/schedule/dog", payload)  
+        break;        
+      case 9: //set cons ranges by dog
+       
+              payload = {
+                    "chip_id": 'c02',
+                    "time": '12:00',
+                    "grams": 320
+              }
+        res = await this.axios.post("/set/ranges/cons/dog ", payload)  
+        break;
       default:
         break;
     }
