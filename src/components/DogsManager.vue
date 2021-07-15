@@ -1,5 +1,5 @@
 <template>
-<!-- Represent one statistics chart, line, pie, or column -->
+  <!-- Represent the classic the form for add one dog-->
   <div class="mx-3" id="stats">
     <v-dialog
       :fullscreen="$vuetify.breakpoint.mobile"
@@ -18,7 +18,9 @@
             id="zoom"
             width="110%"
           >
-            <v-card-title class="justify-center blue-grey darken-4 text-center">Aggiungi un Cane</v-card-title>
+            <v-card-title class="justify-center blue-grey darken-4 text-center"
+              >Aggiungi un Cane</v-card-title
+            >
           </v-card>
         </v-hover>
       </template>
@@ -37,55 +39,51 @@
         <template>
           <v-card class="mx-auto" height="100%" width="100%">
             <v-card-text>
-                <v-form
-                  ref="form"
-                  v-model="valid"
-                  lazy-validation
-                >
-                  <v-text-field
-                    v-model="name"
-                    :counter="10"
-                    :rules="nameRules"
-                    label="Nome"
-                    required
-                  ></v-text-field>
-              
-                  <v-text-field
-                    v-model="ID"
-                    :counter="5"
-                    :rules="iDRules"
-                    label="ID"
-                    required
-                  ></v-text-field>
-                  
-                  <v-text-field
-                    v-model="cage"
-                    :counter="5"
-                    :rules="cageRules"
-                    label="Gabbia"
-                    required
-                  ></v-text-field>
-                    <v-divider />
-                    <h3>Stato di salute</h3>
-                    <v-radio-group v-model="defaultValueGroupHealth">
-                      <v-radio
-                        v-for="val in healthStates"
-                        :key="val.Ita"
-                        :label="`${val.Ita}`"
-                        :value="val.Eng"
-                      ></v-radio>
-                    </v-radio-group>
-                    <v-divider />
-                    <h3>Taglia</h3>
-                    <v-radio-group v-model="defaultValueGroupSize">
-                      <v-radio
-                        v-for="val in dogsSize"
-                        :key="val.Size"
-                        :label="`${val.Size}`"
-                        :value="val.Value"
-                      ></v-radio>
-                    </v-radio-group>
-                </v-form>
+              <v-form ref="form" v-model="valid" lazy-validation>
+                <v-text-field
+                  v-model="name"
+                  :counter="10"
+                  :rules="nameRules"
+                  label="Nome"
+                  required
+                ></v-text-field>
+
+                <v-text-field
+                  v-model="ID"
+                  :counter="5"
+                  :rules="iDRules"
+                  label="ID"
+                  required
+                ></v-text-field>
+
+                <v-text-field
+                  v-model="cage"
+                  :counter="5"
+                  :rules="cageRules"
+                  label="Gabbia"
+                  required
+                ></v-text-field>
+                <v-divider />
+                <h3>Stato di salute</h3>
+                <v-radio-group v-model="defaultValueGroupHealth">
+                  <v-radio
+                    v-for="val in healthStates"
+                    :key="val.Ita"
+                    :label="`${val.Ita}`"
+                    :value="val.Eng"
+                  ></v-radio>
+                </v-radio-group>
+                <v-divider />
+                <h3>Taglia</h3>
+                <v-radio-group v-model="defaultValueGroupSize">
+                  <v-radio
+                    v-for="val in dogsSize"
+                    :key="val.Size"
+                    :label="`${val.Size}`"
+                    :value="val.Value"
+                  ></v-radio>
+                </v-radio-group>
+              </v-form>
             </v-card-text>
             <v-card-actions>
               <v-btn

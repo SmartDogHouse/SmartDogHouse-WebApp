@@ -1,5 +1,5 @@
 <template>
-<!-- Represent the notifications tab for the user, a black text area where each text line has its own button for clean the notification -->
+  <!-- Represent the notifications tab for the user, a black text area where each text line has its own button for clean the notification -->
   <div class="Notification">
     <v-card class="mx-auto" min-width="10vw" tile>
       <h2>Notifiche</h2>
@@ -13,7 +13,7 @@
               {{item.msg}}
             </v-list-item-subtitle>
           </v-list-item-content>
-          <v-list-item-action @click="onButtonClick(item.name)" >
+          <v-list-item-action @click="onButtonClick(item.name)">
             <v-btn depressed small class="px-8 py-4">
               <v-icon color="orange darken-4" center> mdi-window-close </v-icon>
             </v-btn>

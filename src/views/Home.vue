@@ -1,5 +1,5 @@
 <template>
-<!-- Represent the main view for each user on the website, it switches the component page based to the user privilege, hiding and showing the respective buttons -->
+  <!-- Represent the main view for each user on the website, it switches the component page based to the user privilege, hiding and showing the respective buttons -->
   <div>
     <v-app-bar app color="grey" flat>
       <v-tabs centered class="ml-n9" color="orange darken-4">
@@ -33,7 +33,7 @@
 
     <v-main class="grey">
       <div v-switch="view">
-          <v-container v-case="links[0]">
+        <v-container v-case="links[0]">
           <AdministrationCommands :consumption="consumption" />
           <v-divider />
           <EnvStats :umidity="umidity" :temperature="temperature" />
@@ -61,7 +61,6 @@
             class="my-4"
             :notifications="notifications"
             :owner="links[1]"
-
           />
           <v-row>
             <v-col cols="12" sm="5">
@@ -77,9 +76,7 @@
 
             <v-col cols="12" sm="7">
               <v-sheet rounded="lg" min-height="268">
-                <dogView
-                  :permissions="['foodAttendant']"
-                />
+                <dogView :permissions="['foodAttendant']" />
               </v-sheet>
             </v-col>
           </v-row>
@@ -90,7 +87,6 @@
             class="my-4"
             :notifications="notifications"
             :owner="links[2]"
-
           />
           <v-row>
             <v-col cols="12" sm="5">
@@ -115,11 +111,10 @@
           <v-divider />
           <EnvStats :umidity="umidity" :temperature="temperature" />
           <NotificationsTab
-           @selected="removeNotification"
+            @selected="removeNotification"
             class="my-4"
             :notifications="notifications"
             :owner="links[3]"
-
           />
           <v-row>
             <v-col>
@@ -172,15 +167,15 @@ export default {
     }
     //Keep-alive socket every 120 sec
     var conns = this.connection
-    setInterval(function() {       
+    setInterval(function() {
       if(conns){
           conns.send({"data":"Keep-Alive-Msg"});
       }
       }, 120000);
 
-       var res = await this.axios.get("/view/logs/dog/total",{ 
+       var res = await this.axios.get("/view/logs/dog/total",{
           params: {
-            'dog': 'c01', 
+            'dog': 'c01',
             'lowerT': "2021-01-01T00:00",
             'upperT': "2021-12-31T22:00"
           }
@@ -237,7 +232,6 @@ export default {
 
     },
     async dogRemoved(value){
-
         var res = await this.axios.post("/set/dog/remove", {"chip_id":value})
         if(res.status == 200){
           this.$router.go()
@@ -248,7 +242,7 @@ export default {
       if(msg){
         console.log("Notification arrived")
         var max_of_array =  this.notifications.length === 0 ? 1 : Math.max.apply(Math, this.notifications.map(obj => obj.name))+1;
-        
+
         this.notifications.push({"name":max_of_array, "msg":msg})
       }else{
         console.log("Keep alive arrived")

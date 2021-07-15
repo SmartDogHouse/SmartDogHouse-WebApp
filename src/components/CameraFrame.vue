@@ -1,12 +1,12 @@
 <template>
-<!-- Represent one IP camera frame that is used for watch the actual video streaming, it provides the possibility to switch the camera-->
+  <!-- Represent one IP camera frame that is used for watch the actual video streaming, it provides the possibility to switch the camera-->
   <div class="camera">
     <v-row min-width="100%">
       <v-col min-width="100%">
         <v-card class="mx-auto" min-width="50vw" tile>
           <v-list-item>
             <v-list-item-content>
-            <!--src="https://picsum.photos/510/300?random" -->
+              <!--src="https://picsum.photos/510/300?random" -->
 
               <v-img
                 src="http://2.tcp.eu.ngrok.io:15456/video_feed"

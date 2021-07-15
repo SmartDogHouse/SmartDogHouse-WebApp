@@ -1,5 +1,5 @@
 <template>
-<!-- Represent the classic login form with user and password, no registrarion is possible-->
+  <!-- Represent the classic login form with user and password, no registrarion is possible-->
   <v-card class="elevation-12">
     <v-toolbar dark color="primary">
       <v-toolbar-title>Login form</v-toolbar-title>
@@ -25,7 +25,9 @@
     <v-card-actions>
       <v-spacer />
       <v-btn color="primary" v-on:click="tryLogIn">Login</v-btn>
-      <v-btn color="primary" v-on:click="tryLogIn1">Test</v-btn>
+      <!-- Testing BTN-->
+      <!-- <v-btn color="primary" v-on:click="tryLogIn1">Test</v-btn>-->
+
       <v-spacer />
     </v-card-actions>
   </v-card>
@@ -74,7 +76,7 @@ export default {
         })
         break;
       case 2: //test dog logs
-        res = await this.axios.get("/view/logs/dog",{ 
+        res = await this.axios.get("/view/logs/dog",{
           params: {
             'type': "temp",
             'dog': "c02",
@@ -83,35 +85,35 @@ export default {
           }
         })
         break;
-      case 3:   //test total of a dog consumption given range of time      
-        res = await this.axios.get("/view/logs/dog/total",{ 
+      case 3:   //test total of a dog consumption given range of time
+        res = await this.axios.get("/view/logs/dog/total",{
           params: {
-            'dog': 'c01', 
+            'dog': 'c01',
             'lowerT': "2021-01-01T00:00",
             'upperT': "2021-12-31T22:00"
           }
         })
         break;
-      case 4:   //test last temp and hb retrieval     
-        res = await this.axios.get("/view/logs/dog/last",{ 
+      case 4:   //test last temp and hb retrieval
+        res = await this.axios.get("/view/logs/dog/last",{
           params: {
             'dog': 'c03'
           }
         })
         break;
       case 5: //roles by user
-        res = await this.axios.get("/view/user/roles",{ 
+        res = await this.axios.get("/view/user/roles",{
           params: {
             username: 'ciccio01'
           }
-        })  
+        })
         break;
-      case 6: //users by role        
-          res = await this.axios.get("/view/roles/user",{ 
+      case 6: //users by role
+          res = await this.axios.get("/view/roles/user",{
           params: {
             role: 'vet'
           }
-        })  
+        })
         break;
       case 7: //test set schedule (size)
           payload = {
@@ -119,7 +121,7 @@ export default {
                 "time": '13:00',
                 "grams": 274
           }
-        res = await this.axios.post("/set/schedule/size", payload)          
+        res = await this.axios.post("/set/schedule/size", payload)
         break;
       case 8: //test set schedule (dog)
         payload = {
@@ -127,17 +129,17 @@ export default {
               "time": '12:00',
               "grams": 320
         }
-        res = await this.axios.post("/set/schedule/dog", payload)  
-        break;        
+        res = await this.axios.post("/set/schedule/dog", payload)
+        break;
       case 9: //set cons ranges by dog
-       
+
         payload = {
                   "chip_id": "c03",
                   "lower_bound": 36,
                   "upper_bound": 40,
                   "type": 'water',
                 }
-        res = await this.axios.post("/set/ranges/cons/dog ", payload)  
+        res = await this.axios.post("/set/ranges/cons/dog ", payload)
         break;
       case 10: //insert dog
        payload = {
@@ -153,7 +155,7 @@ export default {
        payload = {
           "chip_id": "c02",
           "status": "curing",
-        }      
+        }
         res = await this.axios.post("/set/dog/status", payload)
         break;
       case 12: //transfer dog
@@ -162,7 +164,7 @@ export default {
             "new_cage": 11
         }
         res = await this.axios.post("/set/dog/transfer", payload)
-       
+
       break;
       case 13: //delete dog
         payload = {

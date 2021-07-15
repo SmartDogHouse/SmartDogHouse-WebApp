@@ -1,5 +1,5 @@
 <template>
-<!-- Represent the list of all information about one dog, it provides some functionality for modify the dog status.
+  <!-- Represent the list of all information about one dog, it provides some functionality for modify the dog status.
 It changes the functionality given based on the privilege provided-->
   <div>
     <v-card class="mx-auto" max-width="400">
@@ -8,7 +8,7 @@ It changes the functionality given based on the privilege provided-->
         Cani registrati
         <v-spacer />
       </v-card-title>
-      <DogsManager/>
+      <DogsManager />
       <v-card-text class="pt-4">
         Seleziona un cane da visualizzare
       </v-card-text>
@@ -28,11 +28,8 @@ It changes the functionality given based on the privilege provided-->
                 small
                 class="px-1 py-4"
               >
-                <v-icon color="orange darken-4" center>
-                  mdi-close
-                </v-icon>
+                <v-icon color="orange darken-4" center> mdi-close </v-icon>
               </v-btn>
-              
             </v-list-item-action>
             <v-list-item-content>
               <v-list-item-title>{{ item.fullName }}</v-list-item-title>
@@ -49,7 +46,6 @@ It changes the functionality given based on the privilege provided-->
                   mdi-open-in-new
                 </v-icon>
               </v-btn>
-              
             </v-list-item-action>
           </v-list-item>
         </template>

@@ -1,5 +1,5 @@
 <template>
-<!-- Represent one statistics chart, line, pie, or column -->
+  <!-- Represent one statistics chart, line, pie, or column -->
   <div class="mx-3" id="stats">
     <v-dialog
       :fullscreen="$vuetify.breakpoint.mobile"

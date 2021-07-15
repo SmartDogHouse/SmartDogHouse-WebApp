@@ -1,5 +1,5 @@
 <template>
-<!-- Represent the main login view, for now is dummy, no single action is taken for the user login or password. This is a placeholder for future development.-->
+  <!-- Represent the main login view, for now is dummy, no single action is taken for the user login or password. This is a placeholder for future development.-->
   <div>
     <v-layout align-center justify-center>
       <v-flex xs12 sm8 md4>
