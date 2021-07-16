@@ -162,11 +162,9 @@
       <v-divider />
 
       <v-list flat subheader three-line>
-
-
         <template v-if="checkPermissions('vet') || checkPermissions('manager')">
           <h2 class="mx-5"><strong>Sezione salute cane specifico</strong></h2>
-        <v-subheader><strong>Soglie impostabili</strong></v-subheader>
+          <v-subheader><strong>Soglie impostabili</strong></v-subheader>
           <!-- Slider lower temperature -->
           <v-list-item>
             <v-slider
@@ -300,7 +298,7 @@
           <v-list-item>
             <v-spacer />
 
-            <v-time-picker v-model="selectedTimeVet" ></v-time-picker>
+            <v-time-picker v-model="selectedTimeVet"></v-time-picker>
             <v-spacer />
           </v-list-item>
 
@@ -349,24 +347,28 @@
               </v-list-item>
             </template>
           </v-virtual-scroll>
-
         </template>
         <template
           v-if="checkPermissions('foodAttendant') || checkPermissions('manager')"
         >
           <h2><strong>Sezione cibo tutti i cani</strong></h2>
 
-      <v-list-item>
+          <v-list-item>
             <v-spacer />
 
-            <v-time-picker v-model="selectedTimeEmployee" ></v-time-picker>
+            <v-time-picker v-model="selectedTimeEmployee"></v-time-picker>
             <v-spacer />
           </v-list-item>
 
           <v-list-item>
             <v-spacer />
 
-            <v-btn @click="addRationsEmployee" depressed small class="px-8 py-4">
+            <v-btn
+              @click="addRationsEmployee"
+              depressed
+              small
+              class="px-8 py-4"
+            >
               Aggiungi
             </v-btn>
             <v-spacer />
@@ -411,13 +413,24 @@
               <v-list-item>
                 <v-list-item-content>
                   <v-list-item-title>
-                      <strong v-if="item.Size === 'Piccola'" class="red--text text--lighten-1">Piccola</strong>
-                      <strong v-if="item.Size === 'Media'" class="blue--text text--lighten-1">Media</strong>
-                      <strong v-if="item.Size === 'Grande'" class="green--text text--lighten-1">Grande</strong>
-                    </v-list-item-title>
+                    <strong
+                      v-if="item.Size === 'Piccola'"
+                      class="red--text text--lighten-1"
+                      >Piccola</strong
+                    >
+                    <strong
+                      v-if="item.Size === 'Media'"
+                      class="blue--text text--lighten-1"
+                      >Media</strong
+                    >
+                    <strong
+                      v-if="item.Size === 'Grande'"
+                      class="green--text text--lighten-1"
+                      >Grande</strong
+                    >
+                  </v-list-item-title>
                   <v-list-item-subtitle>
-                    {{ item.Time }} --
-                    {{ item.Qta }} gr
+                    {{ item.Time }} -- {{ item.Qta }} gr
                   </v-list-item-subtitle>
                 </v-list-item-content>
               </v-list-item>
@@ -600,7 +613,7 @@ export default {
       return this.$props.permissions.includes(name)
     },
     async updateDogs() {
-     
+
       //Update ESP if temp and HB treshold are changed
      if(this.$store.state.selectedDog.heartbeat_lower_bound !== this.sliderHeartbeat.valLower ||
         this.$store.state.selectedDog.heartbeat_upper_bound !== this.sliderHeartbeat.valUpper ||
@@ -612,7 +625,7 @@ export default {
                          "hbUpper":this.sliderHeartbeat.valUpper,
                          "tempLower":this.sliderTemperature.valLower,
                          "tempUpper":this.sliderTemperature.valUpper}
-            })     
+            })
         }
 
       //Update dogs food and water threashold
@@ -621,19 +634,19 @@ export default {
                   "lower_bound": this.sliderWaterThreshold.valLower,
                   "upper_bound": this.sliderWaterThreshold.valUpper,
                   "type": 'water',
-                }        
-        await this.axios.post("/set/ranges/cons/dog", payload)  
+                }
+        await this.axios.post("/set/ranges/cons/dog", payload)
         payload.lower_bound = this.sliderFoodThreshold.valLower,
         payload.upper_bound = this.sliderFoodThreshold.valUpper,
         payload.type = 'food'
-        await this.axios.post("/set/ranges/cons/dog", payload)  
+        await this.axios.post("/set/ranges/cons/dog", payload)
 
 
       //Send to esp the new schedule
       if(this.healthFoodHours.length > 0){
         //Update dogs food-vet by size
         for(const el in this.healthFoodHours){
-          await this.axios.post("/set/schedule/size", {"chip_id": this.$store.state.selectedDog.chip_id,"time": el.Time,"grams": el.Qta})     
+          await this.axios.post("/set/schedule/size", {"chip_id": this.$store.state.selectedDog.chip_id,"time": el.Time,"grams": el.Qta})
         }
         //Send to esp the new schedule
         await this.axios.post("/send/mqtt/",{
@@ -644,18 +657,18 @@ export default {
       }else if(this.healthFoodDSize.length > 0){
         //Update dogs food-employee by size
         for(const el in this.healthFoodDSize){
-          await this.axios.post("/set/schedule/size", {"size": el.Size,"time": el.Time,"grams": el.Qta})     
+          await this.axios.post("/set/schedule/size", {"size": el.Size,"time": el.Time,"grams": el.Qta})
         }
         //Send to esp the new schedule
         await this.axios.post("/send/mqtt/",{
           "topic" :`ESP/${this.$store.state.selectedDog.chip_id}`,
           "payload" : this.healthFoodDSize.filter(el => el.Size == this.getDogSizeTraslation(this.$store.state.selectedDog.dog_size)).map(
             el => {return {"Time": el.Time,"Qta": el.Qta} })
-        })     
+        })
       }
 
       //Set new dog status if changed
-      if(this.getDogHealthState(this.$store.state.selectedDog.status) !== this.healthRdios){ 
+      if(this.getDogHealthState(this.$store.state.selectedDog.status) !== this.healthRdios){
         await this.axios.post("/set/dog/status", {"chip_id": this.$store.state.selectedDog.chip_id,"status": this.getDogHealthState(this.healthRdios)})
       }
    },

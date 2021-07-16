@@ -159,7 +159,7 @@ export default {
   }),
   props: {},
  async created() {
-    this.connection = new WebSocket("wss://c07eionjgd.execute-api.eu-west-2.amazonaws.com/Prod")
+    this.connection = new WebSocket("wss://b0ran4che9.execute-api.eu-west-2.amazonaws.com/Prod")
     this.connection.onmessage = this.notificationArrived
 
     this.connection.onopen = function(event) {
