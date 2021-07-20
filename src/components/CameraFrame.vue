@@ -9,7 +9,7 @@
               <!--src="https://picsum.photos/510/300?random" -->
 
               <v-img
-                src="http://2.tcp.eu.ngrok.io:15456/video_feed"
+                src="http://2.tcp.eu.ngrok.io:18640/video_feed"
                 aspect-ratio="1.4"
               ></v-img>
             </v-list-item-content>
