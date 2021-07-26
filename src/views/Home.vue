@@ -8,6 +8,7 @@
         </v-tab>
       </v-tabs>
       <v-app-bar-nav-icon
+        id="openDrawner"
         color="orange darken-4"
         @click.stop="openDrawner"
       ></v-app-bar-nav-icon>

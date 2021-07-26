@@ -12,6 +12,7 @@
           name="login"
           label="Login"
           type="text"
+          data-cy="user"
         ></v-text-field>
         <v-text-field
           id="password"
@@ -19,6 +20,7 @@
           name="password"
           label="Password"
           type="password"
+          data-cy="password"
         ></v-text-field>
       </v-form>
     </v-card-text>
