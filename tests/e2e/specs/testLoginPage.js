@@ -1,3 +1,8 @@
+const user = {
+  "name": "bruno123",
+  "passwd": "passwordona",
+}
+
 describe('Test login functionalities', () => {
   it('Loag the login page', () => {
     cy.visit('/Login')
@@ -5,8 +10,8 @@ describe('Test login functionalities', () => {
   })
 
   it('Fills the login fields', () => {
-    cy.get('[data-cy="user"]').type('bruno123')
-    cy.get('[data-cy="password"]').type('passwordona')
+    cy.get('[data-cy="user"]').type(user.name)
+    cy.get('[data-cy="password"]').type(user.passwd)
   })
 
   it('Try to login', () => {

@@ -1,4 +1,3 @@
-// https://docs.cypress.io/api/introduction/api.html
 
 describe('Test the loding of survilliance employee page', () => {
   it('Loads the page', () => {
