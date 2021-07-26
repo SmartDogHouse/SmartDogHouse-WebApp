@@ -1,13 +1,20 @@
-//Open login page test it and test log out button
-describe('My First Test', () => {
-  it('Visits the app root url', () => {
-    expect(true).to.equal(true) 
+describe('Test login functionalities', () => {
+  it('Loag the login page', () => {
     cy.visit('/Login')
     cy.url().should('include', '/Login')
+  })
+
+  it('Fills the login fields', () => {
     cy.get('[data-cy="user"]').type('bruno123')
     cy.get('[data-cy="password"]').type('passwordona')
+  })
+
+  it('Try to login', () => {
     cy.contains('button','Login').click()
     cy.url().should('include', '/Home')
+  })
+
+  it('Try to logout', () => {
     cy.get('#openDrawner').click()
     cy.contains('Logout').click()
     cy.url().should('include', '/Login')
