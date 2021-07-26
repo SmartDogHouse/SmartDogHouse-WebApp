@@ -3,6 +3,9 @@
 describe('My First Test', () => {
   it('Visits the app root url', () => {
     cy.visit('/Home')
-    cy.contains('h1', 'Welcome to Your Vue.js App')
+    cy.url().should('include', '/Home')
+    cy.contains('Altro addetto').click()
+    cy.url().should('include', '/Home')
+    cy.contains('Work in progress!')
   })
 })
