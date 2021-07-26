@@ -18,7 +18,7 @@
             id="zoom"
             width="110%"
           >
-            <v-card-title class="justify-center blue-grey darken-4 text-center"
+            <v-card-title class="justify-center blue-grey darken-4 text-center" data-cy="insertNewDog"
               >Aggiungi un Cane</v-card-title
             >
           </v-card>
@@ -46,6 +46,7 @@
                   :rules="nameRules"
                   label="Nome"
                   required
+                  data-cy="dogName"
                 ></v-text-field>
 
                 <v-text-field
@@ -54,6 +55,7 @@
                   :rules="iDRules"
                   label="ID"
                   required
+                  data-cy="dogID"
                 ></v-text-field>
 
                 <v-text-field
@@ -62,6 +64,7 @@
                   :rules="cageRules"
                   label="Gabbia"
                   required
+                  data-cy="dogCage"
                 ></v-text-field>
                 <v-divider />
                 <h3>Stato di salute</h3>

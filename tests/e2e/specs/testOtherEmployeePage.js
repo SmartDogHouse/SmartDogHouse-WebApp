@@ -8,7 +8,8 @@ describe('Test the loding of other employee page', () => {
     cy.url().should('include', '/Home')
   })
 
-  it('Check the content', () => {
-    cy.contains('Work in progress!')
+  it('Contains notifications', () => {
+    cy.contains('Notifiche')
   })
+  
 })

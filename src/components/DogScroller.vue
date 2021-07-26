@@ -13,9 +13,9 @@ It changes the functionality given based on the privilege provided-->
         Seleziona un cane da visualizzare
       </v-card-text>
       <v-divider />
-      <v-virtual-scroll :items="items()" :item-height="50" height="300">
+      <v-virtual-scroll data-cy="dogScroller" :items="items()" :item-height="50" height="300">
         <template v-slot:default="{ item }">
-          <v-list-item>
+          <v-list-item data-cy="dogScrollerItem">
             <v-list-item-avatar>
               <v-avatar :color="item.color" size="56" class="white--text">
                 {{ item.initials }}
@@ -28,7 +28,7 @@ It changes the functionality given based on the privilege provided-->
                 small
                 class="px-1 py-4"
               >
-                <v-icon color="orange darken-4" center> mdi-close </v-icon>
+                <v-icon color="orange darken-4" :data-cy=item.id center> mdi-close </v-icon>
               </v-btn>
             </v-list-item-action>
             <v-list-item-content>
