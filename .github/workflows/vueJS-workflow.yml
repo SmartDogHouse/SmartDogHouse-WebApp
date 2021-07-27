@@ -14,10 +14,7 @@ jobs:
     steps:
       - name: Setup Git repo
         uses: actions/checkout@v2
-      - name: Test Code current branch
-        shell: bash
-        run: |
-          echo "skip"
+      - name: Test Code in faishon e2e 
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run
@@ -29,8 +26,8 @@ jobs:
         steps:
           - name: launch coverage
             shell: bash
-            run: echo "skip"
-          
+            run: |
+              git fetch --prune --unshallow --tags #Pull all tags
   TelegramJobFailure:
       needs: [CoverageJob] #when finished this job
       if: failure() # if its failed
