@@ -1,4 +1,5 @@
 {
   "pluginsFile": "tests/e2e/plugins/index.js",
-  "baseUrl": "https://main.dju9luq0cgrv7.amplifyapp.com/"
+  "baseUrl": "https://main.dju9luq0cgrv7.amplifyapp.com/",
+  "video": false
 }
