@@ -1,8 +1,12 @@
 name: Workflow frontEnd
 on:
+  workflow_run:
+    workflows: ["AWS Amplify (eu-west-2)"]
+    branches: [main]
+    types: 
+      - completed
   push:
   workflow_dispatch:
-  workflows: ["AWS Amplify (eu-west-2)"]
 jobs:
 
   TestJob:
