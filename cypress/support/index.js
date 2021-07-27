@@ -16,13 +16,5 @@
 // Import commands.js using ES2015 syntax:
 import './commands'
 import '@cypress/code-coverage/support'
-
-// file tests/e2e/plugins/index.js
-module.exports = (on, config) => {
-  require('@cypress/code-coverage/task')(on, config)
-  // IMPORTANT to return the config object
-  // with the any changed environment variables
-  return config
-}
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
