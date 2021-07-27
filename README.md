@@ -4,9 +4,6 @@ This is the front-end of the WebApp, hosted on **AWS Aplify** at: [Website](http
 
 The WebApp uses **VueJS**, that runs on **nodeJS**.
 
-
-![smart doghouse logo](./src/main/python/output/dogs_S.png "Smart DogHouse Logo")
-
 It is possible to run the application in local, the version of nodeJS used is: v4.17.3.
 ## Install all dependencies
 Use **NPM** to download all dependencies
