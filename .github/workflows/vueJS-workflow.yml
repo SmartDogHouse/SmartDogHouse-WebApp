@@ -25,7 +25,7 @@ jobs:
           git config user.email github-actions@github.com
           git fetch --all
           git pull
-          cp -r ./coverage/ ./new-coverage
+          mv ./coverage/ ./new-coverage
           git checkout gh-pages
           git rm -r ./coverage/
           git commit -m "Removed old cov"
