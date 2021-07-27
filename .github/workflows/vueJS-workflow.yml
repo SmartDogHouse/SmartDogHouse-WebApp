@@ -24,10 +24,18 @@ jobs:
         if: success() #only on success
         runs-on: ubuntu-latest
         steps:
-          - name: launch coverage
+          - name: upload coverage
             shell: bash
             run: |
-              git fetch --prune --unshallow --tags #Pull all tags
+              git fetch --all
+              cp -r ./coverage/ ./new-coverage
+              git checkout gh-pages
+              git rm -r ./coverage/
+              git commit -m "Removed old cov"
+              mv ./new-coverage ./coverage/
+              git add ./coverage
+              git commit -m "Added new cov"
+              git push
   TelegramJobFailure:
       needs: [CoverageJob] #when finished this job
       if: failure() # if its failed
