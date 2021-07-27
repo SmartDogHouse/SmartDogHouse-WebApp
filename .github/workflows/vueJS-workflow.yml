@@ -2,6 +2,7 @@ name: Workflow frontEnd
 on:
   push:
   workflow_dispatch:
+  workflows: ["AWS Amplify (eu-west-2)"]
 jobs:
 
   TestJob:
