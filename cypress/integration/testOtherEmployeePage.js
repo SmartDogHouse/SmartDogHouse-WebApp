@@ -1,5 +1,3 @@
-// https://docs.cypress.io/api/introduction/api.html
-
 describe('Test the loding of other employee page', () => {
   it('Visit otheremployee page', () => {
     cy.visit('/Home')

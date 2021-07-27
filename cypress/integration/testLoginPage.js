@@ -4,7 +4,7 @@ const user = {
 }
 
 describe('Test login functionalities', () => {
-  it('Loag the login page', () => {
+  it('Loads the login page', () => {
     cy.visit('/Login')
     cy.url().should('include', '/Login')
   })

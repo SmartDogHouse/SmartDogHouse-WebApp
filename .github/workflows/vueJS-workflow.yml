@@ -13,7 +13,10 @@ jobs:
         shell: bash
         run: |
           echo "skip"
-                      
+      # Install NPM dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
   CoverageJob:
         needs: [TestJob] #when finished this job
         if: success() #only on success
