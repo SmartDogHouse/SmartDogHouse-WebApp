@@ -27,6 +27,7 @@ jobs:
             shell: bash
             run: |
               git fetch --all
+              git pull
               mv ./coverage/ ./new-coverage
               git checkout gh-pages
               git rm -r ./coverage/
