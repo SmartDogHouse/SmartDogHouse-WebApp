@@ -21,7 +21,7 @@
     "eslint-plugin-vue": "^7.11.1",
     "local-cors-proxy": "^1.1.0",
     "material-design-icons-iconfont": "6.1.0",
-    "node-sass": "^6.0.1",
+    "node-sass": "^7.0.0",
     "sass-loader": "^12.1.0",
     "v-switch-case": "1.0.3",
     "vue": "2.6.14",
